@@ -6,19 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/start_page"
+        android:layout_centerInParent="true"
+        android:id="@+id/start"
+        />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/Relative">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo"
+            android:layout_marginTop="300dp"
+            android:id="@+id/logo"/>
+
 
     <Button
         android:id="@+id/lgn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log In"
-        android:layout_marginTop="150dp"/>
+        android:layout_marginTop="400dp"
+
+      />
 
     <Button
         android:id="@+id/reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:layout_marginTop="350dp"/>
+        android:layout_marginTop="450dp"/>
 
+</RelativeLayout>
 </RelativeLayout>
