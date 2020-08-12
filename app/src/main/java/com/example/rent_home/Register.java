@@ -3,24 +3,39 @@ package com.example.rent_home;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
 
-    private EditText password, confirm_password,email;
+    private EditText password, confirm_password,email,username,name;
     private Button Register;
+    private TextView lgUser;
     private FirebaseAuth a;
+
+    private DatabaseReference rootRef;
+
+    ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +47,27 @@ public class Register extends AppCompatActivity {
         confirm_password= findViewById(R.id.c_pass);
         email= findViewById(R.id.email);
         Register= findViewById(R.id.reg);
+        username= findViewById(R.id.username);
+        name=findViewById(R.id.name);
+        lgUser= findViewById(R.id.loginUser);
 
         a= FirebaseAuth.getInstance();
+        rootRef= FirebaseDatabase.getInstance().getReference();
+
+        pd= new ProgressDialog(this);
+
+        lgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Register.this, Login.class));
+            }
+        });
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String user= username.getText().toString();
+                String nam= name.getText().toString();
                 String text_email = email.getText().toString();
                 String pass = password.getText().toString();
                 String c_p = confirm_password.getText().toString();
@@ -46,16 +76,22 @@ public class Register extends AppCompatActivity {
                 if (pass.equals(c_p)) {
 
 
-                    if (TextUtils.isEmpty(text_email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(c_p)) {
-                        Toast.makeText(Register.this, "ERROR_404", Toast.LENGTH_SHORT).show();
-                    } else if (pass.length() < 7) {
-                        Toast.makeText(Register.this, "Password is too short", Toast.LENGTH_SHORT).show();
+                    if (TextUtils.isEmpty(text_email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(c_p) ||TextUtils.isEmpty(user)|| TextUtils.isEmpty(nam)) {
+                        Toast.makeText(Register.this, "Please gie all the informations", Toast.LENGTH_SHORT).show();
+                    } else if (pass.length() < 5) {
+                        password.setError("Password is too short");
+                        password.requestFocus();
+                        return;
+                       // Toast.makeText(Register.this, "Password is too short", Toast.LENGTH_SHORT).show();
                     } else {
-                        registerUser(text_email, pass, c_p);
+                        registerUser(user, nam, text_email, pass, c_p);
                     }
                 } else {
+                    confirm_password.setError("Password is not matching");
+                    confirm_password.requestFocus();
+                    return;
 
-                    Toast.makeText(Register.this, "Password Not matching", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(Register.this, "Password Not matching", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -64,26 +100,45 @@ public class Register extends AppCompatActivity {
 
     }
 
+    private void registerUser(final String user, final String nam, final String email, String pass, String c_p) {
+        pd.setMessage("Please wait");
+        pd.show();
 
-    private void registerUser(String email, String pass1, String cp) {
-        a.createUserWithEmailAndPassword(email, pass1).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+        a.createUserWithEmailAndPassword(email,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(Register.this, "Registration Complete", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(Register.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
+            public void onSuccess(AuthResult authResult) {
+                HashMap<String, Object> map= new HashMap<>();
+                map.put("name",name);
+                map.put("email",email);
+                map.put("Username",user);
+                map.put("id",a.getCurrentUser().getUid());
+
+                rootRef.child("Users").child(a.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            pd.dismiss();
+                            Toast.makeText(Register.this, "Update the profile for better experience", Toast.LENGTH_SHORT).show();
+                            Intent intent= new Intent(Register.this, home.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
+        }
     }
 
 
 
-
-
-    }

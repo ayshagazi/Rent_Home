@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp"
     tools:context=".Register">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/logo"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:textSize="35dp"
+        android:id="@+id/username"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textSize="35dp"
+        android:id="@+id/name"/>
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:hint="Email"
         android:textSize="35dp"/>
 
@@ -18,7 +38,6 @@
         android:id="@+id/pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
         android:hint="Password"
         android:textSize="35dp"
         android:inputType="textPassword"/>
@@ -28,15 +47,18 @@
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
         android:textSize="35dp"
-        android:layout_marginTop="300dp"
         android:inputType="textPassword"/>
     <Button
         android:id="@+id/reg"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Register"
-        android:textSize="40dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginLeft="120dp" />
+        android:textSize="35dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Alreay a user? Login"
+        android:layout_marginTop="20dp"
+        android:id="@+id/loginUser"/>
 
-</RelativeLayout>
+</LinearLayout>
