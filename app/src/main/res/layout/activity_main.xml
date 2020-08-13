@@ -19,22 +19,24 @@
     android:layout_height="wrap_content"
     android:id="@+id/Relative">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/logo"
-            android:layout_marginTop="300dp"
-            android:id="@+id/logo"/>
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="-3dp"
+        android:background="@drawable/logo" />
 
     <Button
         android:id="@+id/lgn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In"
         android:layout_marginTop="400dp"
+        android:text="Log In"
 
-      />
+        />
 
     <Button
         android:id="@+id/reg"

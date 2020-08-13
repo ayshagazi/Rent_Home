@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home">
+    tools:context=".search">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
+        android:text="Search"
         android:textSize="50sp"
         android:textStyle="bold"
         android:layout_centerInParent="true"/>
@@ -23,7 +23,5 @@
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"
         />
-
-
 
 </RelativeLayout>
