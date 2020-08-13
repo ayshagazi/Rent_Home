@@ -7,12 +7,17 @@
     tools:context=".Login">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/start_page" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:textSize="30dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="350dp"
         android:id="@+id/email"/>
 
     <EditText
@@ -21,16 +26,25 @@
         android:hint="Password"
         android:textSize="30dp"
         android:inputType="textPassword"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="410dp"
         android:id="@+id/password"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Log In"
         android:textSize="25dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="480dp"
         android:id="@+id/lg"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:hint="New User? Click here to register"
+        android:paddingLeft="70dp"
+        android:textSize="17dp"
+        android:id="@+id/user_reg"/>
 
 </RelativeLayout>
