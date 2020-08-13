@@ -108,9 +108,9 @@ public class Register extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 HashMap<String, Object> map= new HashMap<>();
-                map.put("name",name);
-                map.put("email",email);
                 map.put("Username",user);
+                map.put("Name",nam);
+                map.put("Email",email);
                 map.put("id",a.getCurrentUser().getUid());
 
                 rootRef.child("Users").child(a.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
