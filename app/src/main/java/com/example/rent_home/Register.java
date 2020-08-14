@@ -112,6 +112,7 @@ public class Register extends AppCompatActivity {
                 map.put("Name",nam);
                 map.put("Email",email);
                 map.put("id",a.getCurrentUser().getUid());
+                map.put("Image Uri","default");
 
                 rootRef.child("Users").child(a.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
