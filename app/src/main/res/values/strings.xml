@@ -2,4 +2,41 @@
     <string name="app_name">Rent_Home</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="DivisionsString">
+
+        <item>Barishal</item>
+        <item>Chittagong</item>
+        <item>Dhaka</item>
+        <item>Mymensingh</item>
+        <item>Khulna</item>
+        <item>Rajshahi</item>
+        <item>Rangpur</item>
+        <item>Sylhet</item>
+
+    </string-array>
+    
+    <string-array name="DhakaDivisionsDistrictsString">
+        <item>Dhaka</item>
+        <item>Gazipur</item>
+        <item>Kishoreganj</item>
+        <item>Manikganj</item>
+        <item>Munshiganj</item>
+        <item>Narayanganj</item>
+        <item>Narsingdi</item>
+        <item>Tangail</item>
+        <item>Faridpur</item>
+        <item>Gopalganj</item>
+        <item>Madaripur</item>
+        <item>Rajbari</item>
+        <item>Shariatpur</item>
+
+    </string-array>
+
+    <string-array name="SylhetDivisionDistrictString">
+        <item>Habiganj</item>
+        <item>Mouluvi Bazar</item>
+        <item>Sunamganj</item>
+        <item>Sylhet</item>
+    </string-array>
 </resources>
