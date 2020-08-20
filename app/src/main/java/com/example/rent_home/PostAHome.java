@@ -114,6 +114,11 @@ public class PostAHome extends AppCompatActivity {
         });
     }
 
+
+
+
+
+
     private void upload() {
         pd= new ProgressDialog(this);
         pd.setMessage("Uploading");

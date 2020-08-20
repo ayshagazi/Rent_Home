@@ -36,6 +36,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation "com.hendraanggrian.appcompat:socialview:0.2"
     implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
