@@ -2,12 +2,12 @@ package com.example.rent_home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,27 +25,35 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class home extends AppCompatActivity {
-
-    private ImageView close;
-    private TextView save, C_pic;
+public class Profile extends AppCompatActivity {
+    private Button edit_pro;
     private CircleImageView pro_pic;
-    private MaterialEditText name,username,email;
+    private TextView address, username, name;
 
-    private FirebaseUser cur_user;
+    private FirebaseUser cUser;
+
+    String proID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_profile);
 
-        close= findViewById(R.id.close);
-        save= findViewById(R.id.save);
-        C_pic= findViewById(R.id.cngPic);
-        pro_pic= findViewById(R.id.pro_pic);
+        edit_pro= findViewById(R.id.edit);
+        pro_pic=findViewById(R.id.profile_img);
+        address=findViewById(R.id.address);
+        username=findViewById(R.id.userName);
         name= findViewById(R.id.name);
-        username=findViewById(R.id.username);
-        email= findViewById(R.id.email);
+
+        cUser= FirebaseAuth.getInstance().getCurrentUser();
+        proID= cUser.getUid();
+
+        edit_pro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, editProfile.class));
+            }
+        });
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.profile);
@@ -83,18 +91,13 @@ public class home extends AppCompatActivity {
             }
         });
 
-
-
-        cur_user= FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(proID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users us= snapshot.getValue(Users.class);
                 name.setText(us.getName());
-                email.setText(us.getEmail());
+                address.setText(us.getAddress());
                 username.setText(us.getUsername());
-
-//image_add_baki
             }
 
             @Override
@@ -102,29 +105,6 @@ public class home extends AppCompatActivity {
 
             }
         });
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        C_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CropImage.activity().setCropShape(CropImageView.CropShape.OVAL).start(home.this);
-            }
-        });
-
-        pro_pic .setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CropImage.activity().setCropShape(CropImageView.CropShape.OVAL).start(home.this);
-            }
-        });
-
-
 
 
     }

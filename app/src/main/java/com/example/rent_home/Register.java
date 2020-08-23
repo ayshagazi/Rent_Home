@@ -100,7 +100,7 @@ public class Register extends AppCompatActivity {
 
     }
 
-    private void registerUser(final String user, final String nam, final String email, String pass, String c_p) {
+    private void registerUser(final String user, final String nam, final String email, final String pass, String c_p) {
         pd.setMessage("Please wait");
         pd.show();
 
@@ -111,15 +111,17 @@ public class Register extends AppCompatActivity {
                 map.put("Username",user);
                 map.put("Name",nam);
                 map.put("Email",email);
+                map.put("Password",pass);
                 map.put("id",a.getCurrentUser().getUid());
-                map.put("Image Uri","default");
+                map.put("Image Uri","");
+                map.put("Address","");
 
                 rootRef.child("Users").child(a.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             pd.dismiss();
-                            Intent intent= new Intent(Register.this, home.class);
+                            Intent intent= new Intent(Register.this, Profile.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();

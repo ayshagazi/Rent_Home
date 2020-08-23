@@ -8,10 +8,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +18,6 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,35 +31,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class PostAHome extends AppCompatActivity {
-  //  private ImageView imaged_added, close;
-    //private TextView post;
-    //private Uri image_uri;
-    //private String imgUrl;
-
-    private Button homePic;
+public class AddAHome extends AppCompatActivity {
+    private ImageView imaged_added, close;
+    private TextView post;
+    private Uri image_uri;
+    private String imgUrl;
 
 
+    ProgressDialog pd;
 
- //   ProgressDialog pd;
-
- //   SocialAutoCompleteTextView description;
+    SocialAutoCompleteTextView description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_a_home);
+        setContentView(R.layout.activity_add_a_home);
 
-        homePic=findViewById(R.id.homePic);
-
-        homePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PostAHome.this, AddAHome.class));
-
-            }
-        });
-/*
         imaged_added= findViewById(R.id.image_added);
         close= findViewById(R.id.close);
         description= findViewById(R.id.description);
@@ -71,7 +55,7 @@ public class PostAHome extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PostAHome.this, Profile.class));
+                startActivity(new Intent(AddAHome.this, Profile.class));
                 finish();
             }
         });
@@ -83,60 +67,16 @@ public class PostAHome extends AppCompatActivity {
             }
         });
 
-        CropImage.activity().start(PostAHome.this);
+        CropImage.activity().start(AddAHome.this);
 
-
-
-
-
-
- */
-
-
-
-
-
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.postAHome);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(), Profile.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.search:
-                        startActivity(new Intent(getApplicationContext(), search.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.postAHome:
-                        return true;
-
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
     }
-
-
-
-/*
-
 
     private void upload() {
         pd= new ProgressDialog(this);
         pd.setMessage("Uploading");
         pd.show();
 
-        if(image_uri != null){
+        if(image_uri!=null){
             final StorageReference file = FirebaseStorage.getInstance().getReference("Posts").child(System.currentTimeMillis() + "."+ getFileExtension(image_uri));
             StorageTask uptask= file.putFile(image_uri);
 
@@ -146,17 +86,16 @@ public class PostAHome extends AppCompatActivity {
                     if(!task.isSuccessful()){
                         throw task.getException();
                     }
-                    return file.getDownloadUrl();
-                }
+                    return file.getDownloadUrl();                }
             }).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
+
                     Uri down_uri= (Uri) task.getResult();
                     imgUrl= down_uri.toString();
 
-                    DatabaseReference refre= FirebaseDatabase.getInstance().getReference("posts");
+                    DatabaseReference refre= FirebaseDatabase.getInstance().getReference("Homes");
                     String postID = refre.push().getKey();
-
                     HashMap<String, Object> map= new HashMap<>();
                     map.put("Post Id",postID);
                     map.put("Image Url",imgUrl);
@@ -175,33 +114,33 @@ public class PostAHome extends AppCompatActivity {
                             hasHTagRef.child(tag.toLowerCase()).setValue(map);
                         }
                     }
+
                     pd.dismiss();
-                    startActivity(new Intent(PostAHome.this, Profile.class));
+                    startActivity(new Intent(AddAHome.this, Profile.class));
                     finish();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(PostAHome.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddAHome.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
             });
 
-            }
+        }
 
-        else {
+        else{
             Toast.makeText(this, "Image missing", Toast.LENGTH_SHORT).show();
+
         }
 
     }
-
     private String getFileExtension(Uri uri) {
-      return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
     }
 
-
- */
-   /* @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(Objects.equals(requestCode,CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) ){
@@ -215,15 +154,12 @@ public class PostAHome extends AppCompatActivity {
         }
 
         else
-            {
-                Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PostAHome.this, Profile.class));
-                finish();
-            }
+        {
+            Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(AddAHome.this, Profile.class));
+            finish();
+        }
 
 
     }
-
-
-    */
 }
