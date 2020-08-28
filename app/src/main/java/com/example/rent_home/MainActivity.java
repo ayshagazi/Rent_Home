@@ -9,34 +9,33 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button login, register;
+    private ImageButton login, register;
     private ImageView cover;
     private RelativeLayout relative;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        register= findViewById(R.id.reg);
-        login= findViewById(R.id.lgn);
-        cover= findViewById(R.id.start);
-        relative= findViewById(R.id.Relative);
+        register = findViewById(R.id.reg);
+        login = findViewById(R.id.lgn);
+        cover = findViewById(R.id.start);
 
-
+/*
         TranslateAnimation animation1= new TranslateAnimation(0,0,0,-1000);
         animation1.setDuration(1000);
         animation1.setFillAfter(false);
         animation1.setAnimationListener(new MyAnimation());
         cover.setAnimation(animation1);
 
-
+*/
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+/*
     private class MyAnimation implements Animation.AnimationListener {
         @Override
         public void onAnimationStart(Animation animation) {
@@ -75,4 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-}
+
+    */
+    }
