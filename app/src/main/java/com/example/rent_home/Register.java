@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class Register extends AppCompatActivity {
 
 
     private EditText password, confirm_password,email,username,name;
-    private Button Register;
+    private ImageButton Register;
     private TextView lgUser;
     private FirebaseAuth a;
 
@@ -77,7 +78,7 @@ public class Register extends AppCompatActivity {
 
 
                     if (TextUtils.isEmpty(text_email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(c_p) ||TextUtils.isEmpty(user)|| TextUtils.isEmpty(nam)) {
-                        Toast.makeText(Register.this, "Please gie all the informations", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register.this, "Please give all the information", Toast.LENGTH_SHORT).show();
                     } else if (pass.length() < 5) {
                         password.setError("Password is too short");
                         password.requestFocus();

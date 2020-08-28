@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,43 +8,68 @@
 
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/start_page" />
+        android:background="@drawable/lg_page"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:layout_width="340dp"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_input"
         android:hint="Email"
-        android:textSize="30dp"
-        android:layout_marginTop="350dp"
-        android:id="@+id/email"/>
+        android:padding="10dp"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/lg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.753" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:layout_width="340dp"
+        android:layout_height="44dp"
+        android:background="@drawable/custom_input"
         android:hint="Password"
-        android:textSize="30dp"
         android:inputType="textPassword"
-        android:layout_marginTop="410dp"
-        android:id="@+id/password"/>
+        android:padding="10dp"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.435" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Log In"
-        android:textSize="25dp"
-        android:layout_marginTop="480dp"
-        android:id="@+id/lg"/>
+    <ImageButton
+        android:id="@+id/lg"
+        android:layout_width="133dp"
+        android:layout_height="52dp"
+        android:background="@color/White"
+        android:scaleType="fitXY"
+        android:src="@drawable/lgbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/user_reg"
+        android:layout_width="207dp"
+        android:layout_height="27dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:hint="New User? Click here to register"
-        android:paddingLeft="70dp"
+        android:hint="New User? Sign Up here"
         android:textSize="17dp"
-        android:id="@+id/user_reg"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lg"
+        app:layout_constraintVertical_bias="0.074" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
