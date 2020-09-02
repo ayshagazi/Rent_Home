@@ -116,10 +116,10 @@ public class PostAHome extends AppCompatActivity {
                     case R.id.postAHome:
                         return true;
 
-                    case R.id.settings:
+                    /*case R.id.settings:
                         startActivity(new Intent(getApplicationContext(), Settings.class));
                         overridePendingTransition(0,0);
-                        return true;
+                        return true;*/
                 }
                 return false;
             }

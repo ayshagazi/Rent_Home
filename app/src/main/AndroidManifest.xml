@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".editProfile" />
         <activity android:name=".AddAHome" />
-        <activity android:name=".Settings" />
         <activity android:name=".PostAHome" />
         <activity android:name=".search" />
         <activity android:name=".Profile" />

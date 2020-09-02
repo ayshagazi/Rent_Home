@@ -48,10 +48,10 @@ public class search extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
 
-                    case R.id.settings:
+                    /*case R.id.settings:
                         startActivity(new Intent(getApplicationContext(), Settings.class));
                         overridePendingTransition(0,0);
-                        return true;
+                        return true;*/
                 }
                 return false;
             }
