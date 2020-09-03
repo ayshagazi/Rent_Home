@@ -2,22 +2,28 @@ package com.example.rent_home;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,6 +44,9 @@ public class AddAHome extends AppCompatActivity {
     private String imgUrl;
 
 
+
+
+
     ProgressDialog pd;
 
     SocialAutoCompleteTextView description;
@@ -46,6 +55,15 @@ public class AddAHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_a_home);
+
+
+
+
+
+
+
+
+
 
         imaged_added= findViewById(R.id.image_added);
         close= findViewById(R.id.close);
@@ -70,6 +88,8 @@ public class AddAHome extends AppCompatActivity {
         CropImage.activity().start(AddAHome.this);
 
     }
+
+
 
     private void upload() {
         pd= new ProgressDialog(this);

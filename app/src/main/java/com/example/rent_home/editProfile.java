@@ -2,20 +2,26 @@ package com.example.rent_home;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,11 +51,64 @@ public class editProfile extends AppCompatActivity {
     private Uri mImgUri;
     private StorageTask uploadTask;
     private StorageReference stroageRef;
+    NavigationView sidenav;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        Toolbar toolbar2;
+        toolbar2 = (Toolbar)findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar2);
+        sidenav = (NavigationView)findViewById(R.id.sidenavmenu);
+        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer);
+        toggle =new ActionBarDrawerToggle(this, drawerLayout, toolbar2, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        sidenav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.profileSN:
+                        Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.mypostsSN:
+                        Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.notificationSN:
+                        Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.settingsSN:
+                        Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.exitSN:
+                        Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.logoutSN:
+                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.aboutusSN:
+                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                }
+                return true;
+            }
+        });
+
+
 
         close = findViewById(R.id.close);
         save = findViewById(R.id.save);
