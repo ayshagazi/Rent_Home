@@ -7,9 +7,9 @@
     <string name="close">Close</string>
     <string-array name="DivisionsString">
 
-        <item>Barishal</item>
-        <item>Chittagong</item>
         <item>Dhaka</item>
+        <item>Chittagong</item>
+        <item>Barshal</item>
         <item>Mymensingh</item>
         <item>Khulna</item>
         <item>Rajshahi</item>
@@ -40,6 +40,33 @@
         <item>Mouluvi Bazar</item>
         <item>Sunamganj</item>
         <item>Sylhet</item>
+    </string-array>
+
+    <string-array name="Area">
+        <item>Mirpur</item>
+        <item>Dhanmondi</item>
+        <item>Farmgate</item>
+        <item>Mohammadpur</item>
+        <item>Badda</item>
+        <item>Banani</item>
+        <item>Rampura</item>
+        <item>Khilgaon</item>
+    </string-array>
+
+    <string-array name="Rent">
+        <item>5000-10000</item>
+        <item>11000-15000</item>
+        <item>16000-20000</item>
+        <item>21000-25000</item>
+        <item>26000-30000</item>
+        <item>31000=35000</item>
+
+    </string-array>
+    <string-array name="Room">
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+
     </string-array>
 
 

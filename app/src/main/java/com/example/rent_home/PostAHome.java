@@ -1,57 +1,43 @@
 package com.example.rent_home;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
-import com.theartofdev.edmodo.cropper.CropImage;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 public class PostAHome extends AppCompatActivity {
-  //  private ImageView imaged_added, close;
-    //private TextView post;
-    //private Uri image_uri;
-    //private String imgUrl;
 
+    String[] DivisionsString;
+    String[] DistrictString;
+    String[] AreaString;
+    String[] RentString;
+    String[] RoomString;
+
+    private Spinner division,district,area,rent,room;
     private Button homePic;
-
-
-
- //   ProgressDialog pd;
-
- //   SocialAutoCompleteTextView description;
+    private ImageButton postBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_a_home);
+
+
+        DivisionsString= getResources().getStringArray(R.array.DivisionsString);
+       // DistrictString= getResources().getStringArray(R.array.)
+        division= findViewById(R.id.Divison);
+        postBtn = findViewById(R.id.button_post);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinnerdisplay,R.id.spinnerDisplay,DivisionsString);
+        division.setAdapter(adapter);
 
         homePic=findViewById(R.id.homePic);
 
@@ -62,6 +48,15 @@ public class PostAHome extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
+
+
+
 /*
         imaged_added= findViewById(R.id.image_added);
         close= findViewById(R.id.close);
@@ -84,17 +79,7 @@ public class PostAHome extends AppCompatActivity {
         });
 
         CropImage.activity().start(PostAHome.this);
-
-
-
-
-
-
  */
-
-
-
-
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.postAHome);
@@ -103,8 +88,8 @@ public class PostAHome extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                    case R.id.homePage:
+                        startActivity(new Intent(getApplicationContext(), HomePage.class));
                         overridePendingTransition(0,0);
                         return true;
 
@@ -116,21 +101,13 @@ public class PostAHome extends AppCompatActivity {
                     case R.id.postAHome:
                         return true;
 
-                    /*case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;*/
                 }
                 return false;
             }
         });
     }
 
-
-
 /*
-
-
     private void upload() {
         pd= new ProgressDialog(this);
         pd.setMessage("Uploading");
@@ -198,8 +175,6 @@ public class PostAHome extends AppCompatActivity {
     private String getFileExtension(Uri uri) {
       return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
     }
-
-
  */
    /* @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -220,10 +195,6 @@ public class PostAHome extends AppCompatActivity {
                 startActivity(new Intent(PostAHome.this, Profile.class));
                 finish();
             }
-
-
     }
-
-
     */
 }

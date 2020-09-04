@@ -1,8 +1,5 @@
 package com.example.rent_home;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +7,9 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,8 +35,8 @@ public class search extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                    case R.id.homePage:
+                        startActivity(new Intent(getApplicationContext(), HomePage.class));
                         overridePendingTransition(0,0);
                         return true;
 

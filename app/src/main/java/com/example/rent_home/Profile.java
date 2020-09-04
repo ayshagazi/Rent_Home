@@ -55,11 +55,11 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.profile);
+       // BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+      //  bottomNavigationView.setSelectedItemId(R.id.profile);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
+      //  bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+         /*   @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.profile:
@@ -85,12 +85,12 @@ public class Profile extends AppCompatActivity {
                         //select= new Settings();
                         startActivity(new Intent(getApplicationContext(), Settings.class));
                         overridePendingTransition(0,0);
-                        return true;*/
+                        return true;
                 }
                 return false;
             }
         });
-
+*/
         FirebaseDatabase.getInstance().getReference().child("Users").child(proID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,3 +109,4 @@ public class Profile extends AppCompatActivity {
 
     }
 }
+

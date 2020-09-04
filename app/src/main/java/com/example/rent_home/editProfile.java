@@ -1,27 +1,21 @@
 package com.example.rent_home;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +30,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -51,16 +44,17 @@ public class editProfile extends AppCompatActivity {
     private Uri mImgUri;
     private StorageTask uploadTask;
     private StorageReference stroageRef;
-    NavigationView sidenav;
-    ActionBarDrawerToggle toggle;
-    DrawerLayout drawerLayout;
+
+ //   NavigationView sidenav;
+   // ActionBarDrawerToggle toggle;
+   // DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        Toolbar toolbar2;
+     /*   Toolbar toolbar2;
         toolbar2 = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         sidenav = (NavigationView)findViewById(R.id.sidenavmenu);
@@ -108,7 +102,7 @@ public class editProfile extends AppCompatActivity {
             }
         });
 
-
+*/
 
         close = findViewById(R.id.close);
         save = findViewById(R.id.save);
