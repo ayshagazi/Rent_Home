@@ -75,28 +75,36 @@ public class HomePage extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.profileSN:
-                        Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                       // Intent intent= new Intent(HomePage.this, Profile.class);
                         Intent intent= new Intent(HomePage.this,Profile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
-
-
-
                         break;
                     case R.id.mypostsSN:
-                        Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent1= new Intent(HomePage.this,MyPosts.class);
+                        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent1);
+                        finish();
                         break;
                     case R.id.notificationSN:
-                        Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent2= new Intent(HomePage.this,Notifications.class);
+                        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent2);
+                        finish();
                         break;
                     case R.id.settingsSN:
-                        Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent3= new Intent(HomePage.this,Settings.class);
+                        intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent3);
+                        finish();
                         break;
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
@@ -107,8 +115,12 @@ public class HomePage extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.aboutusSN:
-                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent4= new Intent(HomePage.this,Profile.class);
+                        intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent4);
+                        finish();
                         break;
 
                 }
