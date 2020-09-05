@@ -143,7 +143,8 @@
         android:layout_marginTop="337dp"
         android:text="TextView" />
 
-    //Do not change any layout
+    //Do not change any layout from here
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -168,7 +169,6 @@
             app:headerLayout="@layout/snpicturedesign"
             android:layout_gravity="start"/>
     </androidx.drawerlayout.widget.DrawerLayout>
-    //Do not change any layout
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -183,6 +183,7 @@
             app:menu="@menu/menu_navigation"
             />
     </RelativeLayout>
-    //Do not change any layout
+
+    //Do not change any layout to here
 
 </RelativeLayout>

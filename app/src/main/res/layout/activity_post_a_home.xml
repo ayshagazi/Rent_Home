@@ -234,7 +234,8 @@
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:layout_constraintVertical_bias="1.0" />
 
-    //Do not change any layout
+    //Do not change any layout from here
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -244,14 +245,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.Toolbar
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/toolbar2"
                 app:title="POST A HOME"
                 app:titleTextColor="#52bea4"
                 android:background="@color/White"/>
-
         </RelativeLayout>
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"
@@ -261,7 +260,6 @@
             app:headerLayout="@layout/snpicturedesign"
             android:layout_gravity="start"/>
     </androidx.drawerlayout.widget.DrawerLayout>
-    //Do not change any layout
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -276,6 +274,7 @@
             app:menu="@menu/menu_navigation"
             />
     </RelativeLayout>
-    //Do not change any layout
+
+    //Do not change any layout to here
 
 </androidx.constraintlayout.widget.ConstraintLayout>
