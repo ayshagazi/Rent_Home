@@ -102,8 +102,8 @@ public class AddAHome extends AppCompatActivity {
                     DatabaseReference refre= FirebaseDatabase.getInstance().getReference("Homes");
                     String postID = refre.push().getKey();
                     HashMap<String, Object> map= new HashMap<>();
-                    map.put("Post Id",postID);
-                    map.put("Image Url",imgUrl);
+                    map.put("PostId",postID);
+                    map.put("ImageUrl",imgUrl);
                     map.put("Description",description.getText().toString());
                     map.put("Punlisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
 

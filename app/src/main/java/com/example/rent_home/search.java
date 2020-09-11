@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class search extends AppCompatActivity {
 
@@ -119,18 +120,21 @@ public class search extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.logoutSN:
-                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        Intent intent5= new Intent(search.this, MainActivity.class);
+                        startActivity(intent5);
                         break;
                     case R.id.aboutusSN:
-                        //Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent4= new Intent(search.this,Profile.class);
+                        Intent intent4= new Intent(search.this,AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent4);
                         finish();
                         break;
-
                 }
                 return true;
             }

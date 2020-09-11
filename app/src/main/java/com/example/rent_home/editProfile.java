@@ -26,6 +26,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -44,6 +45,7 @@ public class editProfile extends AppCompatActivity {
     private Uri mImgUri;
     private StorageTask uploadTask;
     private StorageReference stroageRef;
+    private String imgUri;
 
  //   NavigationView sidenav;
    // ActionBarDrawerToggle toggle;
@@ -113,6 +115,7 @@ public class editProfile extends AppCompatActivity {
         address = findViewById(R.id.address);
         changePic = findViewById(R.id.cngPic);
 
+
         stroageRef = FirebaseStorage.getInstance().getReference().child("Uploads");
 
 
@@ -125,6 +128,9 @@ public class editProfile extends AppCompatActivity {
                 email.setText(us.getEmail());
                 username.setText(us.getUsername());
                 address.setText(us.getAddress());
+               // Picasso.get().load(us.getImageUri()).into(pro_pic);
+
+                                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/rent-home-7a3e6.appspot.com/o/Uploads%2F1598119713974.jpeg?alt=media&token=03995246-0bcd-46c9-bc8b-47e43640a5f4").into(pro_pic);
 
 
 //image_add_baki
@@ -161,16 +167,18 @@ public class editProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateProfile();
+                Toast.makeText(editProfile.this, "Updated", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void updateProfile() {
-        HashMap<String,Object>map= new HashMap<>();
+        HashMap<String,Object> map= new HashMap<>();
         map.put("Name",name.getText().toString());
         map.put("Username",username.getText().toString());
         map.put("Email",email.getText().toString());
         map.put("Address",address.getText().toString());
+        map.put("ImageUri",imgUri);
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).updateChildren(map);
 
@@ -183,7 +191,8 @@ public class editProfile extends AppCompatActivity {
         pd.show();
 
         if(mImgUri !=null){
-            final StorageReference file= stroageRef.child(System.currentTimeMillis()+".jpeg");
+             final StorageReference file= stroageRef.child(System.currentTimeMillis()+".jpeg");
+            //final StorageReference file= FirebaseStorage.getInstance().getReference("Profiles").child(System.currentTimeMillis()+"."+getFileExtension(String.valueOf(mImgUri)));
             uploadTask= file.putFile(mImgUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -199,8 +208,23 @@ public class editProfile extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {
                     if(task.isSuccessful()) {
                         Uri downladUri = (Uri) task.getResult();
-                        String url = downladUri.toString();
-                        FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).child("Image Uri").setValue(url);
+                        imgUri = downladUri.toString();
+
+                      /*  DatabaseReference refre= FirebaseDatabase.getInstance().getReference("Users");
+                        HashMap<String,Object> map= new HashMap<>();
+                        map.put("Name",name.getText().toString());
+                        map.put("Username",username.getText().toString());
+                        map.put("Email",email.getText().toString());
+                        map.put("Address",address.getText().toString());
+                        map.put("ImageUri",imgUri);
+
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).updateChildren(map);
+
+*/
+
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).child("ImageUri").setValue(imgUri);
+
+
 
                         pd.dismiss();
                     }
@@ -216,6 +240,7 @@ public class editProfile extends AppCompatActivity {
         }
 
     }
+
         @Override
         protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
             super.onActivityResult(requestCode, resultCode, data);

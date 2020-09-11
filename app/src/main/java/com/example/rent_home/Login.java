@@ -1,5 +1,6 @@
 package com.example.rent_home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +25,8 @@ public class Login extends AppCompatActivity {
     private ImageButton login;
     private TextView regUser;
     private FirebaseAuth auth;
+    ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class Login extends AppCompatActivity {
         password= findViewById(R.id.password);
         login= findViewById(R.id.lg);
         regUser= findViewById(R.id.user_reg);
+        pd= new ProgressDialog(this);
 
         auth= FirebaseAuth.getInstance();
 
@@ -73,6 +77,9 @@ public class Login extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
+        pd.setMessage("Please wait");
+        pd.show();
+
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -81,12 +88,14 @@ public class Login extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
+                    pd.dismiss();
 
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+               pd.dismiss();
                 Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

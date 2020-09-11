@@ -5,11 +5,14 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="app_token">pk.eyJ1IjoiYXlzaGFnYXppIiwiYSI6ImNrZXkxNXJxeDAwdXoyd28wNWpybmw1MDcifQ.cJYjWM_xg-wwPvpJEtAR5w</string>
+
+
     <string-array name="DivisionsString">
 
-        <item>Dhaka</item>
         <item>Chittagong</item>
-        <item>Barshal</item>
+        <item>Dhaka</item>
+        <item>Barishal</item>
         <item>Mymensingh</item>
         <item>Khulna</item>
         <item>Rajshahi</item>
@@ -34,7 +37,61 @@
         <item>Shariatpur</item>
 
     </string-array>
+    <string-array name="ChittagongDivisionsDistrictsString">
+        <item>Chittagong</item>
+        <item>CoxsBazar</item>
+        <item>Bandarban</item>
+        <item>Khagrachori</item>
+        <item>Rangamati</item>
+        <item>Lakshmipur</item>
 
+    </string-array>
+    <string-array name="BarishalDivisionsDistrictsString">
+        <item>Barishal</item>
+        <item>Pirojpur</item>
+        <item>Jhalkathi</item>
+        <item>Patuakhali</item>
+
+    </string-array>
+    <string-array name="KhulnaDivisionsDistrictsString">
+        <item>Khulna</item>
+        <item>Shathira</item>
+        <item>Bagerhat</item>
+        <item>Magura</item>
+        <item>Kustia</item>
+        <item>Jhenaiah</item>
+
+    </string-array>
+    <string-array name="MymensinghDivisionsDistrictsString">
+        <item>Mymensingh</item>
+        <item>Sherpur</item>
+        <item>Kishoreganj</item>
+        <item>Netrokona</item>
+        <item>Jamalpur</item>
+        <item>Tangail</item>
+    </string-array>
+    <string-array name="RangpurDivisionsDistrictsString">
+        <item>Rangpur</item>
+        <item>Dinajpur</item>
+        <item>Gaibandha</item>
+        <item>Kurigram</item>
+        <item>Nilfamari</item>
+        <item>Lalmonirhat</item>
+        <item>Nilphamari</item>
+        <item>Panchagarh</item>
+
+    </string-array>
+    <string-array name="RajshahiDivisionsDistrictsString">
+        <item>Rajshahi</item>
+        <item>Bogra</item>
+        <item>Joypurhat</item>
+        <item>Naogaon</item>
+        <item>Natore</item>
+        <item>Pabna</item>
+        <item>Sirajganj</item>
+        <item>Chapainawabganj</item>
+
+    </string-array>
     <string-array name="SylhetDivisionDistrictString">
         <item>Habiganj</item>
         <item>Mouluvi Bazar</item>
@@ -42,7 +99,8 @@
         <item>Sylhet</item>
     </string-array>
 
-    <string-array name="Area">
+    <string-array name="dhakaDisArea">
+
         <item>Mirpur</item>
         <item>Dhanmondi</item>
         <item>Farmgate</item>
@@ -52,6 +110,37 @@
         <item>Rampura</item>
         <item>Khilgaon</item>
     </string-array>
+    <string-array name="gazipurDisArea">
+
+        <item>Kaliakair</item>
+        <item>Sreepur</item>
+        <item>Kaliganj</item>
+        <item>Konabari</item>
+    </string-array>
+
+    <string-array name="mirpurSub">
+
+
+        <item>Mirpur1</item>
+        <item>Mirpur2</item>
+        <item>Mirpur6</item>
+        <item>Mirpur10</item>
+        <item>Mirpur11</item>
+        <item>Mirpur12</item>
+        <item>Mirpur14</item>
+        <item>Monipur</item>
+        <item>Pallabi</item>
+        <item>DOHS</item>
+
+    </string-array>
+
+    <string-array name="mohammadpurSub">
+
+        <item>Adabar</item>
+        <item>Bosila</item>
+        <item>Zafarbad</item>
+        <item>Sankar</item>
+    </string-array>
 
     <string-array name="Rent">
         <item>5000-10000</item>
@@ -60,8 +149,8 @@
         <item>21000-25000</item>
         <item>26000-30000</item>
         <item>31000=35000</item>
-
     </string-array>
+
     <string-array name="Room">
         <item>3</item>
         <item>5</item>

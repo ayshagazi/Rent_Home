@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/draw"
+    tools:openDrawer="start"
     tools:context=".search">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView5"
@@ -143,13 +148,11 @@
         android:layout_marginTop="337dp"
         android:text="TextView" />
 
+</RelativeLayout>
+
+
     //Do not change any layout from here
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/draw"
-        tools:openDrawer="start">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -168,7 +171,6 @@
             app:menu="@menu/side_navigation"
             app:headerLayout="@layout/snpicturedesign"
             android:layout_gravity="start"/>
-    </androidx.drawerlayout.widget.DrawerLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -186,4 +188,4 @@
 
     //Do not change any layout to here
 
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
