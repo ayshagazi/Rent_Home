@@ -80,12 +80,15 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="600dp"
-        app:srcCompat="@drawable/ic_search" />
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="129dp"
+        android:layout_marginBottom="70dp"
+        android:background="@color/White"
+        android:scaleType="fitXY"
+        android:src="@drawable/search_button" />
 
     <Spinner
         android:id="@+id/spinnerDivison"
@@ -136,14 +139,6 @@
         android:layout_marginTop="230dp"
         android:layout_marginEnd="7dp" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="337dp"
-        android:text="TextView" />
 
 </RelativeLayout>
     //Do not change any layout from here
@@ -154,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar2"
-            app:title="HOME"
+            app:title="SEARCH"
             app:titleTextColor="#52bea4"
             android:background="@color/White"/>
         <RelativeLayout
