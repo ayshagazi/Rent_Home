@@ -7,17 +7,9 @@
     android:id="@+id/draw"
     tools:openDrawer="start"
     tools:context=".HomePage">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     //Do not change any layout from here
-
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -28,11 +20,9 @@
                 app:title="HOME"
                 app:titleTextColor="#52bea4"
                 android:background="@color/White"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottom_navigation"
                     android:layout_width="match_parent"
@@ -51,7 +41,6 @@
             app:menu="@menu/side_navigation"
             app:headerLayout="@layout/snpicturedesign"
             android:layout_gravity="start"/>
-
     //Do not change any layout to here
 
 

@@ -10,13 +10,13 @@
 
     <string-array name="DivisionsString">
 
+        <item>Barishal</item>
         <item>Chittagong</item>
         <item>Dhaka</item>
-        <item>Barishal</item>
-        <item>Mymensingh</item>
         <item>Khulna</item>
-        <item>Rajshahi</item>
+        <item>Mymensingh</item>
         <item>Rangpur</item>
+        <item>Rajshahi</item>
         <item>Sylhet</item>
 
     </string-array>
@@ -70,6 +70,7 @@
         <item>Jamalpur</item>
         <item>Tangail</item>
     </string-array>
+
     <string-array name="RangpurDivisionsDistrictsString">
         <item>Rangpur</item>
         <item>Dinajpur</item>
@@ -100,7 +101,6 @@
     </string-array>
 
     <string-array name="dhakaDisArea">
-
         <item>Mirpur</item>
         <item>Dhanmondi</item>
         <item>Farmgate</item>
@@ -110,6 +110,7 @@
         <item>Rampura</item>
         <item>Khilgaon</item>
     </string-array>
+
     <string-array name="gazipurDisArea">
 
         <item>Kaliakair</item>
@@ -118,21 +119,7 @@
         <item>Konabari</item>
     </string-array>
 
-    <string-array name="mirpurSub">
 
-
-        <item>Mirpur1</item>
-        <item>Mirpur2</item>
-        <item>Mirpur6</item>
-        <item>Mirpur10</item>
-        <item>Mirpur11</item>
-        <item>Mirpur12</item>
-        <item>Mirpur14</item>
-        <item>Monipur</item>
-        <item>Pallabi</item>
-        <item>DOHS</item>
-
-    </string-array>
 
     <string-array name="mohammadpurSub">
 
