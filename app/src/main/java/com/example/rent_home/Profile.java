@@ -1,8 +1,6 @@
 package com.example.rent_home;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -33,7 +31,7 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        edit_pro= findViewById(R.id.edit);
+      //  edit_pro= findViewById(R.id.edit);
         pro_pic=findViewById(R.id.profile_img);
         address=findViewById(R.id.address);
         username=findViewById(R.id.userName);
@@ -42,12 +40,7 @@ public class Profile extends AppCompatActivity {
         cUser= FirebaseAuth.getInstance().getCurrentUser();
         proID= cUser.getUid();
 
-        edit_pro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Profile.this, editProfile.class));
-            }
-        });
+
 
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(proID).addValueEventListener(new ValueEventListener() {

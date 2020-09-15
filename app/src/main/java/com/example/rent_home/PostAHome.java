@@ -2,8 +2,8 @@ package com.example.rent_home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,24 +12,34 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,15 +67,21 @@ public class PostAHome extends AppCompatActivity {
     private Spinner DistrictSpinnerVariable1;
     private Spinner AreaSpinnerVariable1;
 
-
+    private ImageView homeImg;
+    SocialAutoCompleteTextView description;
+    private StorageReference picOfPostHome;
+    private static final int galleryPic = 1;
+    private Uri ImageUri ;
 
     String SelectDistrict;
     String nameHome,contactNo,beds,price,localArea,area;
-    String saveCurrentDate, saveCurrentTime;
+    String saveCurrentDate, saveCurrentTime,des;
     private String randomKey;
     NavigationView sidenav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
+    private String downloadUri,iUri;
+
     private Button homePic,tracMap,details;
     private ImageButton postBtn;
     private TextView text;
@@ -176,7 +192,11 @@ public class PostAHome extends AppCompatActivity {
 
 
         postDataRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
-
+        homeImg= findViewById(R.id.homeImage);
+      //  upBtn= findViewById(R.id.upBtn);
+        description= findViewById(R.id.des);
+        picOfPostHome= FirebaseStorage.getInstance().getReference().child("home_pictures");
+      //  cur_user = FirebaseAuth.getInstance().getCurrentUser();
         postBtn = findViewById(R.id.button_post);
         details = findViewById(R.id.details);
         homeName = findViewById(R.id.homeName);
@@ -189,15 +209,24 @@ public class PostAHome extends AppCompatActivity {
         //  text=(TextView)findViewById(R.id.description);
 
 
-        homePic = findViewById(R.id.homePic);
-        homePic.setOnClickListener(new View.OnClickListener() {
+       // homePic = findViewById(R.id.homePic);
+      /*  homePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PostAHome.this, AddAHome.class));
 
             }
         });
+        
+*/
 
+        homeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity().start(PostAHome.this);
+                openGallery();
+            }
+        });
         tracMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -287,7 +316,6 @@ public class PostAHome extends AppCompatActivity {
                         startActivity(intent4);
                         finish();
                         break;
-
                 }
                 return true;
             }
@@ -321,15 +349,37 @@ public class PostAHome extends AppCompatActivity {
         });
     }
 
+    private void openGallery() {
+        Intent galleryIntent= new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, galleryPic);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==galleryPic && resultCode== RESULT_OK && data!=null)
+        {
+            ImageUri= data.getData();
+            homeImg.setImageURI(ImageUri);
+        }
+
+    }
+
     private void collectData() {
         nameHome= homeName.getText().toString();
         contactNo= phoNo.getText().toString();
         beds= room.getText().toString();
         price=rent.getText().toString();
         localArea= subArea.getText().toString();
-        area=SelectDistrict.toString();
+        des= description.getText().toString();
+       // area=SelectDistrict.toString();
 
-        if(TextUtils.isEmpty(contactNo))
+        if(ImageUri==null){
+            Toast.makeText(this, "Please select image", Toast.LENGTH_SHORT).show();
+        }
+
+        else if(TextUtils.isEmpty(contactNo))
         {
             Toast.makeText(this, "Please give your Contact No, its mandatory", Toast.LENGTH_SHORT).show();
         }
@@ -360,16 +410,66 @@ public class PostAHome extends AppCompatActivity {
 
            randomKey= saveCurrentDate+ saveCurrentTime;
 
+        StorageReference file= picOfPostHome.child(ImageUri.getLastPathSegment()+ randomKey + ".jpg");
+
+        final UploadTask uploadTask= file.putFile(ImageUri);
+
+
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                String message = e.toString();
+                Toast.makeText(PostAHome.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                //loadingBar.dismiss();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+            {
+                Toast.makeText(PostAHome.this, "Product Image uploaded Successfully...", Toast.LENGTH_SHORT).show();
+
+                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
+                    {
+                        if (!task.isSuccessful())
+                        {
+                            throw task.getException();
+                        }
+
+                        downloadUri = file.getDownloadUrl().toString();
+                        return file.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(PostAHome.this, "Done", Toast.LENGTH_SHORT).show();
+                             UpdateDatabase();
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void UpdateDatabase() {
         HashMap<String, Object>map= new HashMap<>();
         map.put("pId",randomKey);
         map.put("date",saveCurrentDate);
         map.put("time",saveCurrentTime);
+        map.put("image","");
         map.put("homeName",nameHome);
         map.put("contactNo", contactNo);
         map.put("room",beds);
         map.put("area",area);
         map.put("localArea",localArea);
         map.put("rentCost",price);
+        map.put("description",des);
+
         map.put("Punlisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
@@ -389,9 +489,13 @@ public class PostAHome extends AppCompatActivity {
             }
         });
 
+    }
+
+
+
 
     }
-}
+
 
 
 
