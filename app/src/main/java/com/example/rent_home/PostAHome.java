@@ -45,6 +45,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class PostAHome extends AppCompatActivity {
+    FirebaseAuth mAuth;
 
     String[] DivisionsStringVariable1;
     String[] SylhetDivisionDistrictStringVariable1;
@@ -95,6 +96,109 @@ private  String local;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_a_home);
+        mAuth=FirebaseAuth.getInstance();
+
+        Toolbar toolbar2;
+        toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar2);
+        sidenav = (NavigationView) findViewById(R.id.sidenavmenu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.draw);
+        toggle = new ActionBarDrawerToggle(this,
+                drawerLayout,
+                toolbar2,
+                R.string.open,
+                R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        sidenav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.profileSN:
+                        //Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent = new Intent(PostAHome.this, Profile.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case R.id.mypostsSN:
+                        //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent1 = new Intent(PostAHome.this, MyPosts.class);
+                        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent1);
+                        finish();
+                        break;
+                    case R.id.notificationSN:
+                        //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent2 = new Intent(PostAHome.this, Notifications.class);
+                        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent2);
+                        finish();
+                        break;
+                    case R.id.settingsSN:
+                        //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent3 = new Intent(PostAHome.this, Settings.class);
+                        intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent3);
+                        finish();
+                        break;
+                    case R.id.exitSN:
+                        Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.logoutSN:
+                        Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        Intent intent5= new Intent(PostAHome.this, MainActivity.class);
+                        startActivity(intent5);
+                        break;
+                    case R.id.aboutusSN:
+                      //  Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent4 = new Intent(PostAHome.this, AboutUs.class);
+                        intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent4);
+                        finish();
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.postAHome);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.homePage:
+                        startActivity(new Intent(getApplicationContext(), HomePage.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+
+                    case R.id.search:
+                        startActivity(new Intent(getApplicationContext(), search.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+
+                    case R.id.postAHome:
+                        return true;
+
+                }
+                return false;
+            }
+
+        });
+
 
         DivisionsStringVariable1=getResources().getStringArray(R.array.DivisionsString);// ei variable e values er declare kora string recieve korbe
         DhakaDivisionDistrictStringVariable1=getResources().getStringArray(R.array.DhakaDivisionsDistrictsString);//same
@@ -150,8 +254,6 @@ private  String local;
                                 local= AreaSpinnerVariable1.getSelectedItem().toString();
 
                             }
-
-
 
                         }
 
@@ -213,19 +315,6 @@ private  String local;
         tracMap = findViewById(R.id.mapApi);
         pd = new ProgressDialog(this);
 
-        //  text=(TextView)findViewById(R.id.description);
-
-
-       // homePic = findViewById(R.id.homePic);
-      /*  homePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PostAHome.this, AddAHome.class));
-
-            }
-        });
-        
-*/
 
         homeImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,102 +341,7 @@ private  String local;
         });
 
 
-        Toolbar toolbar2;
-        toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar2);
-        sidenav = (NavigationView) findViewById(R.id.sidenavmenu);
-        drawerLayout = (DrawerLayout) findViewById(R.id.draw);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar2, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
 
-        sidenav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.profileSN:
-                        //Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent = new Intent(PostAHome.this, Profile.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                        break;
-                    case R.id.mypostsSN:
-                        //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent1 = new Intent(PostAHome.this, MyPosts.class);
-                        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent1);
-                        finish();
-                        break;
-                    case R.id.notificationSN:
-                        //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent2 = new Intent(PostAHome.this, Notifications.class);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent2);
-                        finish();
-                        break;
-                    case R.id.settingsSN:
-                        //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent3 = new Intent(PostAHome.this, Settings.class);
-                        intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent3);
-                        finish();
-                        break;
-                    case R.id.exitSN:
-                        Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.logoutSN:
-                        Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        FirebaseAuth.getInstance().signOut();
-                        finish();
-                        Intent intent5 = new Intent(PostAHome.this, MainActivity.class);
-                        startActivity(intent5);
-                        break;
-                    case R.id.aboutusSN:
-                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent4 = new Intent(PostAHome.this, AboutUs.class);
-                        intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent4);
-                        finish();
-                        break;
-                }
-                return true;
-            }
-        });
-
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.postAHome);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.homePage:
-                        startActivity(new Intent(getApplicationContext(), HomePage.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-
-                    case R.id.search:
-                        startActivity(new Intent(getApplicationContext(), search.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-
-                    case R.id.postAHome:
-                        return true;
-
-                }
-                return false;
-            }
-
-        });
     }
 
     private void openGallery() {
@@ -416,7 +410,7 @@ private  String local;
 
            randomKey= saveCurrentDate+ saveCurrentTime;
 
-        StorageReference file= picOfPostHome.child(ImageUri.getLastPathSegment()+ randomKey + ".jpg");
+       final StorageReference file= picOfPostHome.child(ImageUri.getLastPathSegment()+ randomKey + ".jpg");
 
         final UploadTask uploadTask= file.putFile(ImageUri);
 
@@ -451,6 +445,7 @@ private  String local;
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         if(task.isSuccessful()){
+                            downloadUri=task.getResult().toString();
                             Toast.makeText(PostAHome.this, "Done", Toast.LENGTH_SHORT).show();
                              UpdateDatabase();
                         }
@@ -470,7 +465,6 @@ private  String local;
         map.put("homeName",nameHome);
         map.put("contactNo", contactNo);
         map.put("room",beds);
-        //map.put("area",area);
         map.put("localArea",localArea);
         map.put("rentCost",price);
         map.put("description",descrip);
@@ -495,9 +489,6 @@ private  String local;
         });
 
     }
-
-
-
 
     }
 

@@ -21,6 +21,7 @@ public class Profile extends AppCompatActivity {
     private Button edit_pro;
     private CircleImageView pro_pic;
     private TextView address, username, name;
+    private TextView phnNo,mail;
 
     private FirebaseUser cUser;
 
@@ -36,6 +37,8 @@ public class Profile extends AppCompatActivity {
         address=findViewById(R.id.address);
         username=findViewById(R.id.userName);
         name= findViewById(R.id.name);
+        mail=findViewById(R.id.email);
+        phnNo=findViewById(R.id.contactNo);
 
         cUser= FirebaseAuth.getInstance().getCurrentUser();
         proID= cUser.getUid();
@@ -53,6 +56,20 @@ public class Profile extends AppCompatActivity {
                 name.setText(us.getName());
                 address.setText(us.getAddress());
                 username.setText(us.getUsername());
+                mail.setText(us.getEmail());
+               // phnNo.setText(us.get);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("Rent_posts").child(proID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
             }
 
             @Override

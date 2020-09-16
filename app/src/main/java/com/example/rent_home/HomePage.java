@@ -122,7 +122,7 @@ public class HomePage extends AppCompatActivity {
                         startActivity(intent5);
                         break;
                     case R.id.aboutusSN:
-                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent intent4= new Intent(HomePage.this,AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

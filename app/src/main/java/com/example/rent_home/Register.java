@@ -113,7 +113,7 @@ public class Register extends AppCompatActivity {
                 map.put("Email",email);
                 map.put("Password",pass);
                 map.put("id",a.getCurrentUser().getUid());
-                map.put("ImageUri","default");
+                map.put("ImageUri","");
                 map.put("Address","");
 
                 rootRef.child("Users").child(a.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -2,7 +2,6 @@ package com.example.rent_home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,10 +10,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -50,6 +49,7 @@ public class search extends AppCompatActivity {
     NavigationView sidenav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
+    FirebaseAuth mAuth;
 
     String SelectedDivision;
     private TextView text;
@@ -59,6 +59,9 @@ public class search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        mAuth=FirebaseAuth.getInstance();
+
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.search);
 
@@ -149,7 +152,7 @@ public class search extends AppCompatActivity {
                         startActivity(intent5);
                         break;
                     case R.id.aboutusSN:
-                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent intent4= new Intent(search.this,AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

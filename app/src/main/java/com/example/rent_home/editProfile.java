@@ -47,64 +47,11 @@ public class editProfile extends AppCompatActivity {
     private StorageReference stroageRef;
     private String imgUri;
 
- //   NavigationView sidenav;
-   // ActionBarDrawerToggle toggle;
-   // DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
-     /*   Toolbar toolbar2;
-        toolbar2 = (Toolbar)findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar2);
-        sidenav = (NavigationView)findViewById(R.id.sidenavmenu);
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer);
-        toggle =new ActionBarDrawerToggle(this, drawerLayout, toolbar2, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        sidenav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId())
-                {
-                    case R.id.profileSN:
-                        Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.mypostsSN:
-                        Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.notificationSN:
-                        Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.settingsSN:
-                        Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.exitSN:
-                        Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.logoutSN:
-                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.aboutusSN:
-                        Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                }
-                return true;
-            }
-        });
-
-*/
 
         close = findViewById(R.id.close);
         save = findViewById(R.id.save);
@@ -115,9 +62,7 @@ public class editProfile extends AppCompatActivity {
         address = findViewById(R.id.address);
         changePic = findViewById(R.id.cngPic);
 
-
         stroageRef = FirebaseStorage.getInstance().getReference().child("Uploads");
-
 
         cur_user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).addValueEventListener(new ValueEventListener() {
@@ -210,21 +155,7 @@ public class editProfile extends AppCompatActivity {
                         Uri downladUri = (Uri) task.getResult();
                         imgUri = downladUri.toString();
 
-                      /*  DatabaseReference refre= FirebaseDatabase.getInstance().getReference("Users");
-                        HashMap<String,Object> map= new HashMap<>();
-                        map.put("Name",name.getText().toString());
-                        map.put("Username",username.getText().toString());
-                        map.put("Email",email.getText().toString());
-                        map.put("Address",address.getText().toString());
-                        map.put("ImageUri",imgUri);
-
-                        FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).updateChildren(map);
-
-*/
-
                         FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).child("ImageUri").setValue(imgUri);
-
-
 
                         pd.dismiss();
                     }
@@ -253,7 +184,6 @@ public class editProfile extends AppCompatActivity {
             else {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
-
 
         }
 
