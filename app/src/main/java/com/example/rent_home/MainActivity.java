@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.lgn);
         cover = findViewById(R.id.start);
 
+        
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

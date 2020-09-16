@@ -2,7 +2,10 @@ package com.example.rent_home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,19 +14,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
+import HomesInFeed.HomesInFeed;
+import Model.HomeInFeedModel;
 
 public class HomePage extends AppCompatActivity {
-   // private Button nevigation;
+    // private Button nevigation;
 
     NavigationView sidenav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
     FirebaseAuth mAuth;
 
+    private DatabaseReference HomeRef;
+    private RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -31,28 +47,35 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        recyclerView =findViewById(R.id.recycler_menu1);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager( this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
         //nevigation= findViewById(R.id.nevigation);
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.homePage);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.homePage:
                         return true;
 
                     case R.id.search:
                         startActivity(new Intent(getApplicationContext(), search.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
 
                     case R.id.postAHome:
                         startActivity(new Intent(getApplicationContext(), PostAHome.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
 
                 }
@@ -80,7 +103,7 @@ public class HomePage extends AppCompatActivity {
                     case R.id.profileSN:
                         //Toast.makeText(getApplicationContext(), "Profile will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent= new Intent(HomePage.this,Profile.class);
+                        Intent intent = new Intent(HomePage.this, Profile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
@@ -88,7 +111,7 @@ public class HomePage extends AppCompatActivity {
                     case R.id.mypostsSN:
                         //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent1= new Intent(HomePage.this,MyPosts.class);
+                        Intent intent1 = new Intent(HomePage.this, MyPosts.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent1);
                         finish();
@@ -96,7 +119,7 @@ public class HomePage extends AppCompatActivity {
                     case R.id.notificationSN:
                         //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent2= new Intent(HomePage.this,Notifications.class);
+                        Intent intent2 = new Intent(HomePage.this, Notifications.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
                         finish();
@@ -104,7 +127,7 @@ public class HomePage extends AppCompatActivity {
                     case R.id.settingsSN:
                         //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent3= new Intent(HomePage.this,Settings.class);
+                        Intent intent3 = new Intent(HomePage.this, Settings.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent3);
                         finish();
@@ -118,13 +141,13 @@ public class HomePage extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
                         finish();
-                        Intent intent5= new Intent(HomePage.this, MainActivity.class);
+                        Intent intent5 = new Intent(HomePage.this, MainActivity.class);
                         startActivity(intent5);
                         break;
                     case R.id.aboutusSN:
-                       // Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getApplicationContext(), "About Us will Open", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent4= new Intent(HomePage.this,AboutUs.class);
+                        Intent intent4 = new Intent(HomePage.this, AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent4);
                         finish();
@@ -135,5 +158,36 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseRecyclerOptions<HomeInFeedModel> option = new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(HomeRef, HomeInFeedModel.class).build();
+        FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed> adapter = new FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed>(option) {
+            @Override
+            protected void onBindViewHolder(@NonNull HomesInFeed holder, int position, @NonNull HomeInFeedModel model) {
+
+                holder.HIFapartmentname.setText(model.getHomeName());
+                holder.HIFrent.setText(model.getRentCost());
+                holder.HIFrooms.setText(model.getRoom());
+                holder.HIFlocalAreaName.setText(model.getLocalArea());
+
+
+
+            }
+
+            @NonNull
+            @Override
+            public HomesInFeed onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.homes_in_feed_design, parent, false);
+                HomesInFeed holder = new HomesInFeed(view);
+                return holder;
+            }
+
+        };
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
     }
 }
