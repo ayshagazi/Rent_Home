@@ -38,7 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
@@ -66,16 +65,17 @@ public class PostAHome extends AppCompatActivity {
     private Spinner DivisionSpinnerVariable1;
     private Spinner DistrictSpinnerVariable1;
     private Spinner AreaSpinnerVariable1;
-
+private  String local;
     private ImageView homeImg;
-    SocialAutoCompleteTextView description;
+   // SocialAutoCompleteTextView description;
+    private EditText description;
     private StorageReference picOfPostHome;
     private static final int galleryPic = 1;
     private Uri ImageUri ;
 
     String SelectDistrict;
     String nameHome,contactNo,beds,price,localArea,area;
-    String saveCurrentDate, saveCurrentTime,des;
+    String saveCurrentDate, saveCurrentTime,descrip;
     private String randomKey;
     NavigationView sidenav;
     ActionBarDrawerToggle toggle;
@@ -141,10 +141,17 @@ public class PostAHome extends AppCompatActivity {
                     DistrictSpinnerVariable1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            if(position==0)
+                            if(position==0) {
                                 AreaSpinnerVariable1.setAdapter(DhakaDistrictAreaAdapter);
-                            if(position==1)
+                                local= AreaSpinnerVariable1.getSelectedItem().toString();
+                            }
+                            if(position==1) {
                                 AreaSpinnerVariable1.setAdapter(GazipurDistrictAreaAdapter);
+                                local= AreaSpinnerVariable1.getSelectedItem().toString();
+
+                            }
+
+
 
                         }
 
@@ -190,12 +197,12 @@ public class PostAHome extends AppCompatActivity {
             }
         });
 
+        picOfPostHome= FirebaseStorage.getInstance().getReference().child("home_pictures");
 
         postDataRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
         homeImg= findViewById(R.id.homeImage);
       //  upBtn= findViewById(R.id.upBtn);
         description= findViewById(R.id.des);
-        picOfPostHome= FirebaseStorage.getInstance().getReference().child("home_pictures");
       //  cur_user = FirebaseAuth.getInstance().getCurrentUser();
         postBtn = findViewById(R.id.button_post);
         details = findViewById(R.id.details);
@@ -235,13 +242,7 @@ public class PostAHome extends AppCompatActivity {
             }
         });
 
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PostAHome.this, postDetails.class));
 
-            }
-        });
 
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -371,8 +372,10 @@ public class PostAHome extends AppCompatActivity {
         contactNo= phoNo.getText().toString();
         beds= room.getText().toString();
         price=rent.getText().toString();
-        localArea= subArea.getText().toString();
-        des= description.getText().toString();
+        localArea= local;
+
+        // localArea= subArea.getText().toString();
+        descrip= description.getText().toString();
        // area=SelectDistrict.toString();
 
         if(ImageUri==null){
@@ -390,12 +393,15 @@ public class PostAHome extends AppCompatActivity {
         else if(TextUtils.isEmpty(price))
         {
             Toast.makeText(this, "Please provide all the information", Toast.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(localArea))
+        }
+
+        /*else if(TextUtils.isEmpty(localArea))
         {
             Toast.makeText(this, "Please provide all the information", Toast.LENGTH_SHORT).show();
-        }
-        else
+        }*/
+        else {
             storeData();
+        }
     }
 
     private void storeData() {
@@ -422,7 +428,6 @@ public class PostAHome extends AppCompatActivity {
             {
                 String message = e.toString();
                 Toast.makeText(PostAHome.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                //loadingBar.dismiss();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -461,16 +466,16 @@ public class PostAHome extends AppCompatActivity {
         map.put("pId",randomKey);
         map.put("date",saveCurrentDate);
         map.put("time",saveCurrentTime);
-        map.put("image","");
+        map.put("image",downloadUri);
         map.put("homeName",nameHome);
         map.put("contactNo", contactNo);
         map.put("room",beds);
-        map.put("area",area);
+        //map.put("area",area);
         map.put("localArea",localArea);
         map.put("rentCost",price);
-        map.put("description",des);
+        map.put("description",descrip);
 
-        map.put("Punlisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        map.put("Publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
         postDataRef.child(randomKey).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {

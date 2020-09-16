@@ -227,17 +227,16 @@
             android:layout_height="100dp"
             android:src="@drawable/addimage" />
 
-        <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
+        <EditText
             android:layout_width="170dp"
             android:layout_height="82dp"
+            android:id="@+id/des"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="233dp"
             android:layout_marginTop="474dp"
             android:hint="Description"
-            android:maxLines="10"
-            android:textSize="20dp"
-            app:socialFlags="hashtag|mention" />
+            android:textSize="20dp" />
 
 
 

@@ -130,7 +130,7 @@ public class editProfile extends AppCompatActivity {
                 address.setText(us.getAddress());
                // Picasso.get().load(us.getImageUri()).into(pro_pic);
 
-                                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/rent-home-7a3e6.appspot.com/o/Uploads%2F1598119713974.jpeg?alt=media&token=03995246-0bcd-46c9-bc8b-47e43640a5f4").into(pro_pic);
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/rent-home-7a3e6.appspot.com/o/home_pictures%2Fimage%3A3109%2016%2C%20202012%3A%2033%3A%2036%20PM.jpg?alt=media&token=29486027-eafc-45cc-b62a-903132ec3061").into(pro_pic);
 
 
 //image_add_baki
