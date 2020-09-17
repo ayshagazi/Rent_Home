@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class search extends AppCompatActivity {
+
+    ImageButton imageButtonSearch;
 
     String[] DivisionsStringVariable;
     String[] SylhetDivisionDistrictStringVariable;
@@ -88,6 +91,14 @@ public class search extends AppCompatActivity {
                         return true;*/
                 }
                 return false;
+            }
+        });
+
+        imageButtonSearch=(ImageButton)findViewById(R.id.imageButtonSearch);
+        imageButtonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(search.this, SearchResults.class));
             }
         });
         Toolbar toolbar2;

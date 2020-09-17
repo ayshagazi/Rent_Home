@@ -79,7 +79,7 @@
         android:textStyle="bold" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonSearch"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
