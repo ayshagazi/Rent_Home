@@ -1,12 +1,12 @@
 package Model;
 
 public class HomeInFeedModel {
-    String Publisher, contactNo, date, description, homeName, image, localArea, pld, rentCost, room, time;
+    String Publisher, contactNo, date, description, homeName, image, localArea,pId, rentCost, room, time, Punlisher;
 
     public HomeInFeedModel() {
     }
 
-    public HomeInFeedModel(String publisher, String contactNo, String date, String description, String homeName, String image, String localArea, String pld, String rentCost, String room, String time) {
+    public HomeInFeedModel(String publisher, String contactNo, String date, String description, String homeName, String image, String localArea, String pId, String rentCost, String room, String time , String Punlisher) {
         Publisher = publisher;
         this.contactNo = contactNo;
         this.date = date;
@@ -14,10 +14,19 @@ public class HomeInFeedModel {
         this.homeName = homeName;
         this.image = image;
         this.localArea = localArea;
-        this.pld = pld;
+        this.pId = pId;
         this.rentCost = rentCost;
         this.room = room;
         this.time = time;
+        this.Punlisher=Punlisher;
+    }
+
+    public String getPunlisher() {
+        return Punlisher;
+    }
+
+    public void setPunlisher(String punlisher) {
+        Punlisher = punlisher;
     }
 
     public String getPublisher() {
@@ -76,12 +85,12 @@ public class HomeInFeedModel {
         this.localArea = localArea;
     }
 
-    public String getPld() {
-        return pld;
+    public String getpId() {
+        return pId;
     }
 
-    public void setPld(String pld) {
-        this.pld = pld;
+    public void setpId(String pId) {
+        this.pId = pId;
     }
 
     public String getRentCost() {

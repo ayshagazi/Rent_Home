@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,14 @@ public class SearchResults extends AppCompatActivity {
                 holder.HIFrent.setText(model.getRentCost());
                 holder.HIFrooms.setText(model.getRoom());
                 holder.HIFlocalAreaName.setText(model.getLocalArea());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(SearchResults.this, HomeDetails.class);
+                        intent.putExtra("pId", model.getpId());
+                        startActivity(intent);
+                    }
+                });
 
 
 

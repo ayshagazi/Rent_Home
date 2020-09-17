@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeDetails">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/Theme"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="HOME DETAILS" />
+
+    <ImageView
+        android:id="@+id/HDhomePic"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/ic_home" />
+
+    <TextView
+        android:id="@+id/HDhomeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="380dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="APARTMENT NAME" />
+    <TextView
+        android:id="@+id/HDarea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="410dp"
+        android:textSize="17sp"
+        android:text="APARTMENT AREA" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="440dp"
+        android:textSize="17sp"
+        android:text="RENT" />
+    <TextView
+        android:id="@+id/HDrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="440dp"
+        android:textSize="17sp"
+        android:text="000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="470dp"
+        android:textSize="17sp"
+        android:text="ROOMS" />
+
+    <TextView
+        android:id="@+id/HDrooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="470dp"
+        android:textSize="17sp"
+        android:text="00" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="500dp"
+        android:textSize="17sp"
+        android:text="DESCRIPTIONS" />
+
+    <TextView
+        android:id="@+id/HDdescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="40dp"
+        android:text="Descriptions"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="600dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:text="CONTACT" />
+
+    <TextView
+        android:id="@+id/HDuserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginEnd="40dp"
+        android:text="USER NAME"
+        android:textSize="17sp"
+        />
+    <TextView
+        android:id="@+id/HDuserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="630dp"
+        android:layout_marginEnd="40dp"
+        android:text="USER EMAIL"
+        android:textSize="17sp"
+        />
+    <TextView
+        android:id="@+id/HDuserContactNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="660dp"
+        android:layout_marginEnd="40dp"
+        android:text="USER CONTACT NO"
+        android:textSize="17sp"
+        />
+
+</RelativeLayout>

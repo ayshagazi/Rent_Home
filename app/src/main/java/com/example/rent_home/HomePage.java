@@ -174,6 +174,15 @@ public class HomePage extends AppCompatActivity {
                 holder.HIFrooms.setText(model.getRoom());
                 holder.HIFlocalAreaName.setText(model.getLocalArea());
 
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(HomePage.this, HomeDetails.class);
+                        intent.putExtra("pId", model.getpId());
+                        startActivity(intent);
+                    }
+                });
+
 
 
             }
