@@ -135,13 +135,17 @@ public class HomePage extends AppCompatActivity {
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        Intent intent7 = new Intent(HomePage.this, MainActivity.class);
+                        startActivity(intent7);
                         break;
                     case R.id.logoutSN:
                         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
                         finish();
-                        Intent intent5 = new Intent(HomePage.this, MainActivity.class);
+                        Intent intent5 = new Intent(HomePage.this, Login.class);
                         startActivity(intent5);
                         break;
                     case R.id.aboutusSN:
@@ -173,6 +177,8 @@ public class HomePage extends AppCompatActivity {
                 holder.HIFrent.setText(model.getRentCost());
                 holder.HIFrooms.setText(model.getRoom());
                 holder.HIFlocalAreaName.setText(model.getLocalArea());
+                Picasso.get().load(model.getImage()).into(holder.HIFhomePic);
+               // Picasso.get().load().into(HIFhomePic);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

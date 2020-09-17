@@ -89,7 +89,6 @@ public class Login extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     pd.dismiss();
-
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

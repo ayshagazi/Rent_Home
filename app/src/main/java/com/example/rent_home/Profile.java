@@ -11,10 +11,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import Model.HomeInFeedModel;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile extends AppCompatActivity {
@@ -25,12 +27,13 @@ public class Profile extends AppCompatActivity {
 
     private FirebaseUser cUser;
 
-    String proID;
+    String proID,homeID="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+       // homeID=getIntent().getStringExtra("pId");
 
       //  edit_pro= findViewById(R.id.edit);
         pro_pic=findViewById(R.id.profile_img);
@@ -42,8 +45,8 @@ public class Profile extends AppCompatActivity {
 
         cUser= FirebaseAuth.getInstance().getCurrentUser();
         proID= cUser.getUid();
-
-
+       homeID=cUser.getUid();
+        getContactNo(homeID);
 
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(proID).addValueEventListener(new ValueEventListener() {
@@ -62,14 +65,22 @@ public class Profile extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
-        FirebaseDatabase.getInstance().getReference().child("Rent_posts").child(proID).addValueEventListener(new ValueEventListener() {
+    }
+
+    private void getContactNo(String homeID) {
+        DatabaseReference homeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
+        homeRef.child(homeID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    HomeInFeedModel home =  snapshot.getValue(HomeInFeedModel.class);
+                    phnNo.setText(home.getHomeName());
 
+                }
             }
 
             @Override
@@ -77,8 +88,6 @@ public class Profile extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
 

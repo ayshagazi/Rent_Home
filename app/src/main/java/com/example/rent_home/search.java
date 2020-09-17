@@ -153,13 +153,17 @@ public class search extends AppCompatActivity {
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        Intent intent7 = new Intent(search.this, MainActivity.class);
+                        startActivity(intent7);
                         break;
                     case R.id.logoutSN:
                         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
                         finish();
-                        Intent intent5= new Intent(search.this, MainActivity.class);
+                        Intent intent5 = new Intent(search.this, Login.class);
                         startActivity(intent5);
                         break;
                     case R.id.aboutusSN:

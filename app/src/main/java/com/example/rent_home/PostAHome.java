@@ -150,13 +150,17 @@ private  String local;
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        Intent intent7 = new Intent(PostAHome.this, MainActivity.class);
+                        startActivity(intent7);
                         break;
                     case R.id.logoutSN:
                         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
                         finish();
-                        Intent intent5= new Intent(PostAHome.this, MainActivity.class);
+                        Intent intent5 = new Intent(PostAHome.this, Login.class);
                         startActivity(intent5);
                         break;
                     case R.id.aboutusSN:
@@ -360,6 +364,8 @@ private  String local;
         }
 
     }
+
+
 
     private void collectData() {
         nameHome= homeName.getText().toString();
