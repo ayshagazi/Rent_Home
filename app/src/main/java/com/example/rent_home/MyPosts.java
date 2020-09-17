@@ -28,7 +28,7 @@ public class MyPosts extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
     private FirebaseUser cUser;
-    String proID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +39,9 @@ public class MyPosts extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager( this);
         recyclerView.setLayoutManager(layoutManager);
-        cUser= FirebaseAuth.getInstance().getCurrentUser();
-        proID= cUser.getUid();
 
 
-        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts").child(proID);
+        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
 
     }
 
