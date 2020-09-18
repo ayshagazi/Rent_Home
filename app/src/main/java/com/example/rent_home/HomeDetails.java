@@ -1,11 +1,14 @@
 package com.example.rent_home;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,10 +23,12 @@ public class HomeDetails extends AppCompatActivity {
     private TextView HDhomeName, HDarea, HDrent, HDrooms, HDdescription,HDuserName, HDuserEmail, HDuserContactNo;
     private ImageView HDhomePic;
     private String homeID="";
+    private Button rent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_details);
+        rent=findViewById(R.id.rent);
 
         homeID=getIntent().getStringExtra("pId");
 
@@ -38,6 +43,15 @@ public class HomeDetails extends AppCompatActivity {
         HDuserContactNo=(TextView)findViewById(R.id.HDuserContactNo);
 
         getHomeDetails(homeID);
+
+        rent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeDetails.this, confirmRent.class));
+
+            }
+        });
+
     }
 
     private void getHomeDetails(String homeID) {

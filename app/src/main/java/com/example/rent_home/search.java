@@ -53,7 +53,7 @@ public class search extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
     FirebaseAuth mAuth;
-
+    String searchPoint;
     String SelectedDivision;
     private TextView text;
 
@@ -62,6 +62,8 @@ public class search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+
 
         mAuth=FirebaseAuth.getInstance();
 
@@ -98,7 +100,8 @@ public class search extends AppCompatActivity {
         imageButtonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(search.this, SearchResults.class));
+                passData();
+              //  startActivity(new Intent(search.this, SearchResults.class));
             }
         });
         Toolbar toolbar2;
@@ -231,10 +234,19 @@ public class search extends AppCompatActivity {
                     DistrictSpinnerVariable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            if(position==0)
+                            if(position==0) {
                                 AreaSpinnerVariable.setAdapter(DhakaDistrictAreaAdapter);
-                            if(position==1)
+                                searchPoint= AreaSpinnerVariable.getSelectedItem().toString();
+
+
+                            }
+                            if(position==1) {
                                 AreaSpinnerVariable.setAdapter(GazipurDistrictAreaAdapter);
+                                searchPoint= AreaSpinnerVariable.getSelectedItem().toString();
+
+
+
+                            }
 
                         }
 
@@ -280,6 +292,13 @@ public class search extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void passData() {
+
+        Intent intent = new Intent(search.this, SearchResults.class);
+        intent.putExtra("message", searchPoint);
+        startActivity(intent);
     }
 
 

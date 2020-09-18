@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +25,19 @@ public class SearchResults extends AppCompatActivity {
     private DatabaseReference HomeRef;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-
+    TextView txtView;
+    String point;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
+
+        Bundle bundle = getIntent().getExtras();
+         point = bundle.getString("message");
+      //  TextView txtView = (TextView) findViewById(R.id.);
+
+        //Log.d("Searcg",point);
+       // txtView.setText(message);
 
         recyclerView =findViewById(R.id.recycler_menu2);
         recyclerView.setHasFixedSize(true);
@@ -40,7 +49,13 @@ public class SearchResults extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerOptions<HomeInFeedModel> option = new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(HomeRef, HomeInFeedModel.class).build();
+
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("Rent_posts");
+        FirebaseRecyclerOptions<HomeInFeedModel> option =
+                new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(reference.orderByChild("localArea").startAt(point), HomeInFeedModel.class).build();
+
+
+        //FirebaseRecyclerOptions<HomeInFeedModel> option = new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(HomeRef, HomeInFeedModel.class).build();
         FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed> adapter = new FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed>(option) {
             @Override
             protected void onBindViewHolder(@NonNull HomesInFeed holder, int position, @NonNull HomeInFeedModel model) {
