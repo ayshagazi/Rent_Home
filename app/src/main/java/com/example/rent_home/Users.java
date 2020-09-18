@@ -2,21 +2,27 @@ package com.example.rent_home;
 
 public class Users {
 
-    private String Email, Name, Username,id,Address,ImageUri;
+    private String Email, Name, Username,id,Address,image,ContactNo,Number;
 
-    public Users(String email, String name, String username, String id, String address,String imageUri) {
+
+
+    public Users(String email, String name, String username, String id, String address, String imageUri, String contactNo, String number) {
         Email = email;
         Name = name;
         Username = username;
         this.id = id;
         Address= address;
-        ImageUri= imageUri;
+        image= imageUri;
+        ContactNo=contactNo;
+        Number=number;
     }
 
 
     public Users() {
 
     }
+
+
 
     public String getEmail() {
         return Email;
@@ -59,11 +65,27 @@ public class Users {
     }
 
     public String getImageUri() {
-        return ImageUri;
+        return image;
     }
 
     public void setImageUri(String imageUri) {
-        ImageUri = imageUri;
+        image = imageUri;
+    }
+
+    public String getContactNo() {
+        return ContactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        ContactNo = contactNo;
+    }
+
+    public String getNumber() {
+        return Number;
+    }
+
+    public void setNumber(String number) {
+        Number = number;
     }
 
     /* public String getEmail() {

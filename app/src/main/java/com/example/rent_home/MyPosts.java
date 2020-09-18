@@ -40,8 +40,9 @@ public class MyPosts extends AppCompatActivity {
         layoutManager = new LinearLayoutManager( this);
         recyclerView.setLayoutManager(layoutManager);
 
+        cUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
+        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts").child(cUser.getUid());
 
     }
 

@@ -53,7 +53,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/profile_pic"
             android:layout_gravity="center"
             android:id="@+id/pro_pic"
             android:layout_margin="10dp"/>
@@ -82,11 +82,13 @@
             android:layout_marginTop="20dp"
             app:met_floatingLabel="normal"/>
 
+
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:hint="email"
+            android:id="@+id/cntNo"
+            android:hint="Contact No"
             android:layout_marginTop="20dp"
             app:met_floatingLabel="normal"/>
 
@@ -97,7 +99,13 @@
             android:hint="Address"
             android:layout_marginTop="20dp"
             app:met_floatingLabel="normal"/>
-
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/email"
+            android:hint="Email"
+            android:layout_marginTop="20dp"
+            app:met_floatingLabel="normal"/>
 
     </LinearLayout>
 
