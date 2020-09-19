@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import Model.HomeInFeedModel;
 
@@ -66,6 +67,7 @@ public class HomeDetails extends AppCompatActivity {
                     HDdescription.setText(home.getDescription());
                     HDrent.setText(home.getRentCost());
                     HDrooms.setText(home.getRoom());
+                    Picasso.get().load(home.getImage()).into(HDhomePic);
 
                 }
             }
