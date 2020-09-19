@@ -1,7 +1,6 @@
 package com.example.rent_home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class Profile extends AppCompatActivity {
     private Button edit_pro;
@@ -62,20 +61,20 @@ public class Profile extends AppCompatActivity {
                 Users us= snapshot.getValue(Users.class);
 //                Log.d("Check",us.getImageUri());
 
-             //   Picasso.get().load(us.getImageUri()).into(pro_pic);
+                Picasso.get().load(us.getImageUri()).into(pro_pic);
                // StorageReference storageRef ;
               //  StorageReference mountainImagesRef = storageReference.getR;\
-                Log.d("number",us.getNumber());
+//                Log.d("number",us.getNumber());
               //  StorageReference gsReference = storage.getReferenceFromUrl("gs://rent-home-7a3e6.appspot.com/Uploads/"+us.getNumber()+".jpg");
-                  StorageReference gsReference = storage.getReferenceFromUrl("gs://rent-home-7a3e6.appspot.com/Uploads/1600423078829.jpg");
+                 // StorageReference gsReference = storage.getReferenceFromUrl("gs://rent-home-7a3e6.appspot.com/Uploads/1600423078829.jpg");
 
 
-
+/*
                 Glide
                         .with(pro_pic.getContext())
                         .load(gsReference)
                         .into(pro_pic);
-
+*/
                 // Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/rent-home-7a3e6.appspot.com/o/Uploads%2F1598119713974.jpeg?alt=media&token=03995246-0bcd-46c9-bc8b-47e43640a5f4").into(pro_pic);
 
                 name.setText(us.getName());

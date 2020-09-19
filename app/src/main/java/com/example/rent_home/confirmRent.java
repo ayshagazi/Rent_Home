@@ -28,13 +28,14 @@ public class confirmRent extends AppCompatActivity {
     private Button confirm;
     String saveCurrentDate;
     String saveCurrentTime;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_rent);
 
         FirebaseUser cur_user= FirebaseAuth.getInstance().getCurrentUser();
-
+        mAuth=FirebaseAuth.getInstance();
         cName=findViewById(R.id.con_Name);
         cAddress= findViewById(R.id.con_address);
         cNo= findViewById(R.id.con_phnNo);
@@ -82,9 +83,11 @@ public class confirmRent extends AppCompatActivity {
         map.put("Name",cName.getText().toString());
         map.put("ContactNo",cNo.getText().toString());
         map.put("Address",cAddress.getText().toString());
+       // map.put("Publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
         map. put("State","Not Rented yet");
 
-        rentRef.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        rentRef.child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){

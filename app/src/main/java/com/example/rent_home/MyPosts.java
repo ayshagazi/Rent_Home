@@ -42,7 +42,7 @@ public class MyPosts extends AppCompatActivity {
 
         cUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts").child(cUser.getUid());
+        HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
 
     }
 
@@ -57,21 +57,21 @@ public class MyPosts extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull HomesInFeed holder, int position, @NonNull HomeInFeedModel model) {
 
-                holder.HIFapartmentname.setText(model.getHomeName());
-                holder.HIFrent.setText(model.getRentCost());
-                holder.HIFrooms.setText(model.getRoom());
-                holder.HIFlocalAreaName.setText(model.getLocalArea());
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(MyPosts.this, HomeDetails.class);
-                        intent.putExtra("pId", model.getpId());
-                        startActivity(intent);
-                    }
-                });
+                    holder.HIFapartmentname.setText(model.getHomeName());
+                    holder.HIFrent.setText(model.getRentCost());
+                    holder.HIFrooms.setText(model.getRoom());
+                    holder.HIFlocalAreaName.setText(model.getLocalArea());
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MyPosts.this, HomeDetails.class);
+                            intent.putExtra("pId", model.getpId());
+                            startActivity(intent);
+                        }
+                    });
+                }
 
-
-            }
+            
 
             @NonNull
             @Override

@@ -1,29 +1,41 @@
 package com.example.rent_home;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import Model.Renters;
 
 public class Notifications extends AppCompatActivity {
 
     private RecyclerView rentList;
-    private DatabaseReference rentRef;
+
     RecyclerView.LayoutManager layoutManager;
+    StorageReference storageReference;
+    DatabaseReference mDatabase;
+    private FirebaseUser cUser;
+    notificationAdapter adapter;
+    FirebaseStorage storage;
+    List<Renters> mData;
+
+    DatabaseReference rentRef= FirebaseDatabase.getInstance().getReference().child("ConfirmRent");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,52 +44,79 @@ public class Notifications extends AppCompatActivity {
         rentList= findViewById(R.id.rent_recyler);
        // rentList.setLayoutManager(new LinearLayoutManager(this));
         rentList.setHasFixedSize(true);
-
+        Log.d("checked","i am here");
+        mData = new ArrayList<>();
         layoutManager = new LinearLayoutManager( this);
         rentList.setLayoutManager(layoutManager);
-        rentRef= FirebaseDatabase.getInstance().getReference().child("ConfirmRent");
+        cUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+       // rentRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts").child(cUser.getUid());
+
+       // adapter.startListening();
+        data();
 
     }
 
+    void data(){
+
+            rentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds: snapshot.getChildren())
+                {
+                    Renters data = ds.getValue(Renters.class);
+                    Log.d("checked",data.getAddress());
+                    mData.add(data);
+
+                }
+                Log.d("checked", String.valueOf(mData));
+                adapter = new notificationAdapter(mData,rentList.getContext());
+                    rentList.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("checked","failed to retrieve");
+                }
+            });
+
+
+
+    }
+/*
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerOptions<Renters> options=
-                new FirebaseRecyclerOptions.Builder<Renters>().setQuery(rentRef,Renters.class).build();
-        FirebaseRecyclerAdapter<Renters,RentersViewHolder> adapter= new FirebaseRecyclerAdapter<Renters, RentersViewHolder>(options) {
+       // FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed> adapter = new FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed>(option) {
+
+        FirebaseRecyclerOptions<Renters> options= new FirebaseRecyclerOptions.Builder<Renters>().setQuery(rentRef,Renters.class).build();
+        FirebaseRecyclerAdapter<Renters, NotificationAdapter> adapter = new FirebaseRecyclerAdapter<Renters, NotificationAdapter>() {
             @Override
-            protected void onBindViewHolder(@NonNull RentersViewHolder holder, int position, @NonNull Renters model)
-            {
-                holder.nam.setText(model.getName());
-                holder.contact.setText(model.getContactNo());
-                holder.adres.setText(model.getAddress());
+            protected void onBindViewHolder(@NonNull NotificationAdapter holder, int position, @NonNull Renters model) {
+
+
+
 
             }
 
             @NonNull
             @Override
-            public RentersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rent_list_layout, parent, false);
-                return new RentersViewHolder(view);            }
+            public NotificationAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return null;
+            }
         };
+
+
 
         rentList.setAdapter(adapter);
         adapter.startListening();
 
     }
+*/
 
 
 
-    public static class RentersViewHolder extends RecyclerView.ViewHolder{
-        public TextView nam,contact,adres;
-        public Button showButton;
-
-        public RentersViewHolder(View itemView){
-            super(itemView);
-            nam= itemView.findViewById(R.id.nam);
-            contact=itemView.findViewById(R.id.cnctNo);
-            adres=itemView.findViewById(R.id.adres);
-            showButton=itemView.findViewById(R.id.showBtn);
-        }
-    }
 }

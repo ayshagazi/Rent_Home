@@ -87,6 +87,9 @@ public class HomePage extends AppCompatActivity {
         toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         sidenav = (NavigationView) findViewById(R.id.sidenavmenu);
+       // sn_name=(NavigationView)findViewById(R.id.username_sn);
+        //View headerView= NavigationView;
+       // view
         drawerLayout = (DrawerLayout) findViewById(R.id.draw);
         toggle = new ActionBarDrawerToggle(this,
                 drawerLayout,

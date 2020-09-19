@@ -8,6 +8,9 @@ public class Renters {
         Address = address;
     }
 
+    public Renters() {
+    }
+
     public Renters(String address, String contactNo, String name, String state) {
         Address = address;
         ContactNo = contactNo;

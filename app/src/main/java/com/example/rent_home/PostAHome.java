@@ -311,7 +311,7 @@ private  String local;
         description= findViewById(R.id.des);
       //  cur_user = FirebaseAuth.getInstance().getCurrentUser();
         postBtn = findViewById(R.id.button_post);
-        details = findViewById(R.id.details);
+      //  details = findViewById(R.id.details);
         homeName = findViewById(R.id.homeName);
         rent = findViewById(R.id.rentRange);
         phoNo = findViewById(R.id.phnNo);
