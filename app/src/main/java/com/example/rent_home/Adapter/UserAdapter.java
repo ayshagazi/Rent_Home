@@ -44,7 +44,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         Users user= mUsers.get(position);
         holder.username.setText(user.getUsername());
         holder.name.setText(user.getName());
-        Picasso.get().load(user.getImageUri()).placeholder(R.mipmap.ic_launcher).into(holder.pro_pic);
+        Picasso.get().load(user.getImage()).placeholder(R.mipmap.ic_launcher).into(holder.pro_pic);
 
     }
 
@@ -62,10 +62,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            pro_pic= itemView.findViewById(R.id.profile_img);
-            address= itemView.findViewById(R.id.address);
-            username= itemView.findViewById(R.id.userName);
-            name= itemView.findViewById(R.id.name);
+            pro_pic= itemView.findViewById(R.id.profile_imgP);
+            address= itemView.findViewById(R.id.addressP);
+
+            name= itemView.findViewById(R.id.nameP);
 
         }
     }

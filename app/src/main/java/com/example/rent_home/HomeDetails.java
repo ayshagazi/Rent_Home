@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,12 +25,12 @@ public class HomeDetails extends AppCompatActivity {
     private TextView HDhomeName, HDarea, HDrent, HDrooms, HDdescription,HDuserName, HDuserEmail, HDuserContactNo;
     private ImageView HDhomePic;
     private String homeID="";
-    private Button rent;
+    private ImageButton rent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_details);
-        rent=findViewById(R.id.rent);
+        rent=(ImageButton) findViewById(R.id.rent);
 
         homeID=getIntent().getStringExtra("pId");
 
@@ -39,9 +40,7 @@ public class HomeDetails extends AppCompatActivity {
         HDrent=(TextView)findViewById(R.id.HDrent);
         HDrooms=(TextView)findViewById(R.id.HDrooms);
         HDdescription=(TextView)findViewById(R.id.HDdescription);
-        HDuserName=(TextView)findViewById(R.id.HDuserName);
-        HDuserEmail=(TextView)findViewById(R.id.HDuserEmail);
-        HDuserContactNo=(TextView)findViewById(R.id.HDuserContactNo);
+
 
         getHomeDetails(homeID);
 
@@ -67,6 +66,7 @@ public class HomeDetails extends AppCompatActivity {
                     HDdescription.setText(home.getDescription());
                     HDrent.setText(home.getRentCost());
                     HDrooms.setText(home.getRoom());
+                    HDarea.setText(home.getLocalArea());
                     Picasso.get().load(home.getImage()).into(HDhomePic);
 
                 }

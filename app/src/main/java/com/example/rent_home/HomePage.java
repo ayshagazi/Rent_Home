@@ -2,10 +2,12 @@ package com.example.rent_home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,17 +19,23 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import HomesInFeed.HomesInFeed;
 import Model.HomeInFeedModel;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomePage extends AppCompatActivity {
     // private Button nevigation;
@@ -41,6 +49,11 @@ public class HomePage extends AppCompatActivity {
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
+
+    CircleImageView SNpropic;
+
+    private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +73,11 @@ public class HomePage extends AppCompatActivity {
         HomeRef = FirebaseDatabase.getInstance().getReference().child("Rent_posts");
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.homePage);
+
+        auth= FirebaseAuth.getInstance();
+        databaseReference=FirebaseDatabase.getInstance().getReference().child("Users");
+
+        retrivePicture();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -87,6 +105,7 @@ public class HomePage extends AppCompatActivity {
         toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         sidenav = (NavigationView) findViewById(R.id.sidenavmenu);
+        SNpropic=(CircleImageView)sidenav.getHeaderView(0).findViewById(R.id.profile_pic_SN);
        // sn_name=(NavigationView)findViewById(R.id.username_sn);
         //View headerView= NavigationView;
        // view
@@ -109,7 +128,7 @@ public class HomePage extends AppCompatActivity {
                         Intent intent = new Intent(HomePage.this, Profile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        finish();
+
                         break;
                     case R.id.mypostsSN:
                         //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
@@ -117,7 +136,7 @@ public class HomePage extends AppCompatActivity {
                         Intent intent1 = new Intent(HomePage.this, MyPosts.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent1);
-                        finish();
+
                         break;
                     case R.id.notificationSN:
                         //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
@@ -125,7 +144,7 @@ public class HomePage extends AppCompatActivity {
                         Intent intent2 = new Intent(HomePage.this, Notifications.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
-                        finish();
+
                         break;
                     case R.id.settingsSN:
                         //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
@@ -133,13 +152,13 @@ public class HomePage extends AppCompatActivity {
                         Intent intent3 = new Intent(HomePage.this, Settings.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent3);
-                        finish();
+
                         break;
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
-                        finish();
+
                         Intent intent7 = new Intent(HomePage.this, MainActivity.class);
                         startActivity(intent7);
                         break;
@@ -147,7 +166,7 @@ public class HomePage extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
-                        finish();
+
                         Intent intent5 = new Intent(HomePage.this, Login.class);
                         startActivity(intent5);
                         break;
@@ -157,7 +176,7 @@ public class HomePage extends AppCompatActivity {
                         Intent intent4 = new Intent(HomePage.this, AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent4);
-                        finish();
+
                         break;
 
                 }
@@ -181,7 +200,6 @@ public class HomePage extends AppCompatActivity {
                 holder.HIFrooms.setText(model.getRoom());
                 holder.HIFlocalAreaName.setText(model.getLocalArea());
                 Picasso.get().load(model.getImage()).into(holder.HIFhomePic);
-               // Picasso.get().load().into(HIFhomePic);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -207,5 +225,23 @@ public class HomePage extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+    }
+    private void retrivePicture() {
+        databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild("image")) {
+                    String image = snapshot.child("image").getValue().toString();
+                    Picasso.get().load(image).into(SNpropic);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

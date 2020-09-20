@@ -6,14 +6,14 @@ public class Users {
 
 
 
-    public Users(String email, String name, String username, String id, String address, String imageUri, String contactNo, String number) {
+    public Users(String email, String name, String username, String id, String address, String image, String contactNo, String number) {
         Email = email;
         Name = name;
         Username = username;
         this.id = id;
-        Address= address;
-        image= imageUri;
-        ContactNo=contactNo;
+        this.Address= address;
+        this.image= image;
+        this.ContactNo=contactNo;
         Number=number;
     }
 
@@ -61,14 +61,14 @@ public class Users {
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.Address = address;
     }
 
-    public String getImageUri() {
+    public String getImage() {
         return image;
     }
 
-    public void setImageUri(String imageUri) {
+    public void setImage(String imageUri) {
         image = imageUri;
     }
 

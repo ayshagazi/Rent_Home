@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import HomesInFeed.HomesInFeed;
 import Model.HomeInFeedModel;
@@ -61,6 +62,7 @@ public class MyPosts extends AppCompatActivity {
                     holder.HIFrent.setText(model.getRentCost());
                     holder.HIFrooms.setText(model.getRoom());
                     holder.HIFlocalAreaName.setText(model.getLocalArea());
+                    Picasso.get().load(model.getImage()).into(holder.HIFhomePic);
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +41,7 @@ public class editProfile extends AppCompatActivity {
 
     private ImageView close;
     private TextView save, C_pic,changePic;
-    private CircleImageView pro_pic;
+    private CircleImageView pro_pic1;
     private MaterialEditText name,username,email,address,contactNo;
 
     private FirebaseUser cur_user;
@@ -52,19 +53,26 @@ public class editProfile extends AppCompatActivity {
     private String check="";
     private static final int galleryPic = 1;
 
+    private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        auth= FirebaseAuth.getInstance();
+        databaseReference=FirebaseDatabase.getInstance().getReference().child("Users");
+        retrivePicture();
+
         close = findViewById(R.id.close);
         save = findViewById(R.id.save);
-        pro_pic = findViewById(R.id.pro_pic);
+        pro_pic1 = findViewById(R.id.pro_pic);
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
-        address = findViewById(R.id.address);
+        address = findViewById(R.id.address1);
         changePic = findViewById(R.id.cngPic);
         contactNo=findViewById(R.id.cntNo);
 
@@ -72,7 +80,7 @@ public class editProfile extends AppCompatActivity {
         stroageRef = FirebaseStorage.getInstance().getReference().child("Uploads");
 
         cur_user = FirebaseAuth.getInstance().getCurrentUser();
-        userinfoDisplay(pro_pic,name,email,username,address,contactNo);
+        userinfoDisplay(pro_pic1,name,email,username,address,contactNo);
 
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +158,7 @@ public class editProfile extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
-            pro_pic.setImageURI(imageUri);
+            pro_pic1.setImageURI(imageUri);
         }
         else
         {
@@ -245,19 +253,21 @@ public class editProfile extends AppCompatActivity {
         }
     }
 
-  /*  private void edited() {
 
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Users");
-        HashMap<String,Object> map= new HashMap<>();
-        map.put("Name",name.getText().toString());
-        map.put("Username",username.getText().toString());
-        map.put("Email",email.getText().toString());
-        map.put("Address",address.getText().toString());
-        map.put("ImageUri",downloadUri);
-        FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).updateChildren(map);
-    }
 
-*/
+    /*  private void edited() {
+
+            DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Users");
+            HashMap<String,Object> map= new HashMap<>();
+            map.put("Name",name.getText().toString());
+            map.put("Username",username.getText().toString());
+            map.put("Email",email.getText().toString());
+            map.put("Address",address.getText().toString());
+            map.put("ImageUri",downloadUri);
+            FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).updateChildren(map);
+        }
+
+    */
     private void userinfoDisplay(CircleImageView pro_pic, MaterialEditText name, MaterialEditText email, MaterialEditText username, MaterialEditText address,  MaterialEditText contactNo) {
         FirebaseDatabase.getInstance().getReference().child("Users").child(cur_user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -277,7 +287,7 @@ public class editProfile extends AppCompatActivity {
                         username.setText(username1);
                         address.setText(address1);
                         contactNo.setText(contactNo1);
-                       Picasso.get().load(image).into(pro_pic);
+
 
                         //  Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/rent-home-7a3e6.appspot.com/o/home_pictures%2Fimage%3A3109%2016%2C%20202012%3A%2033%3A%2036%20PM.jpg?alt=media&token=29486027-eafc-45cc-b62a-903132ec3061").into(pro_pic);
 
@@ -290,12 +300,16 @@ public class editProfile extends AppCompatActivity {
                         String name1= snapshot.child("Name").getValue().toString();
                         String email3= snapshot.child("Email").getValue().toString();
                         String username1= snapshot.child("Username").getValue().toString();
+                        String ContactNo= snapshot.child("ContactNo").getValue().toString();
+                        String Address= snapshot.child("Address").getValue().toString();
 //                        String address1= snapshot.child("Address").getValue().toString();
                      //   String contactNo1=snapshot.child("ContactNo").getValue().toString();
 
                         name.setText(name1);
                         email.setText(email3);
                         username.setText(username1);
+                        address.setText(Address);
+                        contactNo.setText(ContactNo);
                      //   address.setText(address1);
                        // contactNo.setText(contactNo1);
                     }
@@ -309,6 +323,23 @@ public class editProfile extends AppCompatActivity {
         });
 
     }
+    private void retrivePicture() {
+        databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                if (snapshot.hasChild("image")) {
+                    String image = snapshot.child("image").getValue().toString();
+                    Picasso.get().load(image).into(pro_pic1);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     }
 

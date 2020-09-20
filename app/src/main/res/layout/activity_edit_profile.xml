@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/White"
     tools:context=".editProfile">
 
 
@@ -51,12 +52,15 @@
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/profile_pic"
-            android:layout_gravity="center"
+            app:civ_border_width="2dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:id="@+id/pro_pic"
-            android:layout_margin="10dp"/>
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/profile_pic"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,7 +99,7 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/address"
+            android:id="@+id/address1"
             android:hint="Address"
             android:layout_marginTop="20dp"
             app:met_floatingLabel="normal"/>

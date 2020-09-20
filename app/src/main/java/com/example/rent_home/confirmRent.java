@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 public class confirmRent extends AppCompatActivity {
 
     private EditText cName,cAddress,cNo;
-    private Button confirm;
+    private ImageButton confirm;
     String saveCurrentDate;
     String saveCurrentTime;
     FirebaseAuth mAuth;

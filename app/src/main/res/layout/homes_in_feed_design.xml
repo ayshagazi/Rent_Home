@@ -25,10 +25,9 @@
             android:id="@+id/HIFapartmentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="47dp"
+            android:layout_marginStart="230dp"
             android:text="Apartment Name"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -38,9 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="66dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="235dp"
+            android:layout_marginEnd="10dp"
+
             android:text="Local Area Name"
             android:textSize="12sp"
             />
@@ -50,9 +50,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="89dp"
-            android:layout_marginEnd="99dp"
+
+            android:layout_marginTop="85dp"
+            android:layout_marginStart="235dp"
+            android:layout_marginEnd="10dp"
+
             android:text="Room(s)"
             android:textSize="12sp"
             />
@@ -62,9 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="88dp"
+
+            android:layout_marginTop="85dp"
             android:layout_marginEnd="75dp"
+            android:layout_marginStart="290dp"
             android:text="0"
             android:textSize="12sp" />
 
@@ -74,8 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="239dp"
-            android:layout_marginTop="122dp"
+            android:layout_marginStart="235dp"
+            android:layout_marginTop="110dp"
             android:text="Rent"
             android:textSize="12sp"/>
 
@@ -85,8 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="278dp"
-            android:layout_marginTop="122dp"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="110dp"
             android:text="000" />
 
 

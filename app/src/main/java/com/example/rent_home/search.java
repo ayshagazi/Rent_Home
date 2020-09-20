@@ -21,6 +21,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class search extends AppCompatActivity {
 
@@ -56,7 +64,10 @@ public class search extends AppCompatActivity {
     String searchPoint;
     String SelectedDivision;
     private TextView text;
+    CircleImageView SNpropic;
 
+    private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +80,8 @@ public class search extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.search);
+        auth= FirebaseAuth.getInstance();
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("Users");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -108,6 +121,7 @@ public class search extends AppCompatActivity {
         toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         sidenav = (NavigationView) findViewById(R.id.sidenavmenu);
+        SNpropic=(CircleImageView)sidenav.getHeaderView(0).findViewById(R.id.profile_pic_SN);
         drawerLayout = (DrawerLayout) findViewById(R.id.draw);
         toggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
@@ -116,6 +130,8 @@ public class search extends AppCompatActivity {
                 R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        retrivePicture();
 
         sidenav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -127,7 +143,7 @@ public class search extends AppCompatActivity {
                         Intent intent= new Intent(search.this,Profile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        finish();
+
                         break;
                     case R.id.mypostsSN:
                         //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
@@ -135,7 +151,7 @@ public class search extends AppCompatActivity {
                         Intent intent1= new Intent(search.this,MyPosts.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent1);
-                        finish();
+
                         break;
                     case R.id.notificationSN:
                         //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
@@ -143,7 +159,7 @@ public class search extends AppCompatActivity {
                         Intent intent2= new Intent(search.this,Notifications.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
-                        finish();
+
                         break;
                     case R.id.settingsSN:
                         //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
@@ -151,13 +167,13 @@ public class search extends AppCompatActivity {
                         Intent intent3= new Intent(search.this,Settings.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent3);
-                        finish();
+
                         break;
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
-                        finish();
+
                         Intent intent7 = new Intent(search.this, MainActivity.class);
                         startActivity(intent7);
                         break;
@@ -165,7 +181,7 @@ public class search extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
-                        finish();
+
                         Intent intent5 = new Intent(search.this, Login.class);
                         startActivity(intent5);
                         break;
@@ -175,7 +191,7 @@ public class search extends AppCompatActivity {
                         Intent intent4= new Intent(search.this,AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent4);
-                        finish();
+
                         break;
                 }
                 return true;
@@ -236,12 +252,14 @@ public class search extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if(position==0) {
                                 AreaSpinnerVariable.setAdapter(DhakaDistrictAreaAdapter);
+                                searchPoint="";
                                 searchPoint= AreaSpinnerVariable.getSelectedItem().toString();
 
 
                             }
                             if(position==1) {
                                 AreaSpinnerVariable.setAdapter(GazipurDistrictAreaAdapter);
+                                searchPoint="";
                                 searchPoint= AreaSpinnerVariable.getSelectedItem().toString();
 
 
@@ -294,6 +312,24 @@ public class search extends AppCompatActivity {
 
     }
 
+    private void retrivePicture() {
+        databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild("image")) {
+                    String image = snapshot.child("image").getValue().toString();
+                    Picasso.get().load(image).into(SNpropic);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void passData() {
 
         Intent intent = new Intent(search.this, SearchResults.class);

@@ -33,16 +33,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PostAHome extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -67,7 +73,7 @@ public class PostAHome extends AppCompatActivity {
     private Spinner DistrictSpinnerVariable1;
     private Spinner AreaSpinnerVariable1;
 private  String local;
-    private ImageView homeImg;
+    private ImageButton homeImg;
    // SocialAutoCompleteTextView description;
     private EditText description;
     private StorageReference picOfPostHome;
@@ -83,14 +89,18 @@ private  String local;
     DrawerLayout drawerLayout;
     private String downloadUri,iUri;
 
-    private Button homePic,tracMap,details;
-    private ImageButton postBtn;
+    private Button homePic,details;
+    private ImageButton postBtn,tracMap;
     private TextView text;
     private EditText homeName,subArea, rent;
     private EditText phoNo, room;
     private ProgressDialog pd;
 
     private DatabaseReference postDataRef;
+    CircleImageView SNpropic;
+
+    private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +108,15 @@ private  String local;
         setContentView(R.layout.activity_post_a_home);
         mAuth=FirebaseAuth.getInstance();
 
+        auth= FirebaseAuth.getInstance();
+        databaseReference=FirebaseDatabase.getInstance().getReference().child("Users");
+
+        retrivePicture();
         Toolbar toolbar2;
         toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         sidenav = (NavigationView) findViewById(R.id.sidenavmenu);
+        SNpropic=(CircleImageView)sidenav.getHeaderView(0).findViewById(R.id.profile_pic_SN);
         drawerLayout = (DrawerLayout) findViewById(R.id.draw);
         toggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
@@ -121,7 +136,7 @@ private  String local;
                         Intent intent = new Intent(PostAHome.this, Profile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        finish();
+
                         break;
                     case R.id.mypostsSN:
                         //Toast.makeText(getApplicationContext(), "Myposts will Open", Toast.LENGTH_LONG).show();
@@ -129,7 +144,7 @@ private  String local;
                         Intent intent1 = new Intent(PostAHome.this, MyPosts.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent1);
-                        finish();
+
                         break;
                     case R.id.notificationSN:
                         //Toast.makeText(getApplicationContext(), "Notifications will Open", Toast.LENGTH_LONG).show();
@@ -137,7 +152,7 @@ private  String local;
                         Intent intent2 = new Intent(PostAHome.this, Notifications.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
-                        finish();
+
                         break;
                     case R.id.settingsSN:
                         //Toast.makeText(getApplicationContext(), "Settings will Open", Toast.LENGTH_LONG).show();
@@ -145,13 +160,13 @@ private  String local;
                         Intent intent3 = new Intent(PostAHome.this, Settings.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent3);
-                        finish();
+
                         break;
                     case R.id.exitSN:
                         Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
-                        finish();
+
                         Intent intent7 = new Intent(PostAHome.this, MainActivity.class);
                         startActivity(intent7);
                         break;
@@ -159,7 +174,7 @@ private  String local;
                         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         FirebaseAuth.getInstance().signOut();
-                        finish();
+
                         Intent intent5 = new Intent(PostAHome.this, Login.class);
                         startActivity(intent5);
                         break;
@@ -169,7 +184,7 @@ private  String local;
                         Intent intent4 = new Intent(PostAHome.this, AboutUs.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent4);
-                        finish();
+
                         break;
                 }
                 return true;
@@ -348,6 +363,25 @@ private  String local;
 
     }
 
+    private void retrivePicture() {
+        databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild("image")) {
+                    String image = snapshot.child("image").getValue().toString();
+                    Picasso.get().load(image).into(SNpropic);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void openGallery() {
         Intent galleryIntent= new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -494,7 +528,9 @@ private  String local;
             }
         });
 
+
     }
+
 
     }
 

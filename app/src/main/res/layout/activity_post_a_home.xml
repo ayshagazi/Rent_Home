@@ -71,7 +71,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="210dp"
-            android:layout_marginTop="110dp" />
+            android:layout_marginTop="110dp"
+            android:paddingLeft="10dp"/>
 
         <Spinner
             android:id="@+id/spinnerDistrict1"
@@ -80,7 +81,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="210dp"
-            android:layout_marginTop="150dp" />
+            android:layout_marginTop="150dp"
+            android:paddingLeft="10dp"/>
 
         <Spinner
             android:id="@+id/spinnerArea1"
@@ -89,7 +91,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="210dp"
-            android:layout_marginTop="190dp" />
+            android:layout_marginTop="190dp"
+            android:paddingLeft="10dp"/>
 
 
         <TextView
@@ -126,7 +129,7 @@
             android:paddingLeft="10dp"
             android:layout_marginTop="70dp"
             android:background="@drawable/custom_input"
-            android:hint="  Enter a name"
+            android:hint="Enter a name"
             android:textSize="20dp" />
 
         <EditText
@@ -140,7 +143,7 @@
 
             android:layout_marginTop="230dp"
             android:background="@drawable/custom_input"
-            android:hint="  In TK"
+            android:hint="In TK"
             android:textSize="20dp" />
 
         <EditText
@@ -154,7 +157,7 @@
             android:paddingLeft="10dp"
 
             android:background="@drawable/custom_input"
-            android:hint="  Enter Mobile NO"
+            android:hint="Enter Mobile NO"
             android:textSize="20dp" />
 
         <TextView
@@ -180,19 +183,19 @@
             android:paddingLeft="10dp"
 
             android:background="@drawable/custom_input"
-            android:hint="  No of rooms"
+            android:hint="No of rooms"
             android:textSize="20dp" />
 
 
-        <Button
+        <ImageButton
             android:id="@+id/mapApi"
-            android:layout_width="194dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="523dp"
-            android:layout_marginEnd="105dp"
-
-            android:hint="Map" />
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="400dp"
+            android:src="@drawable/map"
+            android:background="@color/White"
+            android:scaleType="fitXY"/>
 
         <ImageButton
             android:id="@+id/button_post"
@@ -212,7 +215,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="443dp"
+            android:layout_marginTop="450dp"
             android:text="Description"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -223,18 +226,30 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="17dp"
-            android:layout_marginTop="374dp"
+            android:layout_marginTop="350dp"
             android:text="Add Photo"
             android:textSize="20sp"
             android:textStyle="bold" />
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="400dp"
+            android:text="Location"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/homeImage"
-            android:layout_width="113dp"
-            android:layout_height="74dp"
-            android:layout_marginLeft="230dp"
-            android:layout_marginTop="345dp"
-            android:src="@drawable/addimage" />
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="350dp"
+            android:src="@drawable/upload"
+            android:background="@color/White"
+            android:scaleType="fitXY"/>
 
         <EditText
             android:id="@+id/des"
@@ -242,8 +257,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="212dp"
-            android:layout_marginTop="429dp"
+            android:layout_marginStart="210dp"
+            android:layout_marginTop="450dp"
             android:hint="Description"
             android:textSize="20dp" />
 
@@ -260,7 +275,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar2"
-            app:title="HOME"
+            app:title="POST A HOME"
             app:titleTextColor="#52bea4"
             android:background="@color/White"/>
         <RelativeLayout
