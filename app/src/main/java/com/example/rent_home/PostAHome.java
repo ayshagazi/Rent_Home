@@ -266,10 +266,12 @@ private  String local;
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if(position==0) {
                                 AreaSpinnerVariable1.setAdapter(DhakaDistrictAreaAdapter);
+                                local = "";
                                 local= AreaSpinnerVariable1.getSelectedItem().toString();
                             }
                             if(position==1) {
                                 AreaSpinnerVariable1.setAdapter(GazipurDistrictAreaAdapter);
+                                local="";
                                 local= AreaSpinnerVariable1.getSelectedItem().toString();
 
                             }

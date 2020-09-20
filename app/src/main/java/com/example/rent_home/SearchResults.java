@@ -52,7 +52,7 @@ public class SearchResults extends AppCompatActivity {
 
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("Rent_posts");
         FirebaseRecyclerOptions<HomeInFeedModel> option =
-                new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(reference.orderByChild("localArea").startAt(point), HomeInFeedModel.class).build();
+                new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(reference.orderByChild("localArea").equalTo(point), HomeInFeedModel.class).build();
 
 
         //FirebaseRecyclerOptions<HomeInFeedModel> option = new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(HomeRef, HomeInFeedModel.class).build();

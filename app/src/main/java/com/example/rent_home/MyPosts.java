@@ -50,9 +50,11 @@ public class MyPosts extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
+
         FirebaseRecyclerOptions<HomeInFeedModel> option = new FirebaseRecyclerOptions.Builder<HomeInFeedModel>().setQuery(HomeRef, HomeInFeedModel.class).build();
         FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed> adapter = new FirebaseRecyclerAdapter<HomeInFeedModel, HomesInFeed>(option) {
             @Override

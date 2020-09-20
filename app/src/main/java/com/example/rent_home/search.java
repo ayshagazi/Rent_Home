@@ -109,14 +109,7 @@ public class search extends AppCompatActivity {
             }
         });
 
-        imageButtonSearch=(ImageButton)findViewById(R.id.imageButtonSearch);
-        imageButtonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                passData();
-              //  startActivity(new Intent(search.this, SearchResults.class));
-            }
-        });
+
         Toolbar toolbar2;
         toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
@@ -310,7 +303,16 @@ public class search extends AppCompatActivity {
             }
         });
 
+        imageButtonSearch=(ImageButton)findViewById(R.id.imageButtonSearch);
+        imageButtonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passData();
+                //  startActivity(new Intent(search.this, SearchResults.class));
+            }
+        });
     }
+
 
     private void retrivePicture() {
         databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
